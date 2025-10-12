@@ -1,0 +1,56 @@
+--- ./src/Fitness/QuantumFitness.h.orig	2025-01-14 07:15:00.698749977 +0000
++++ ./src/Fitness/QuantumFitness.h
+@@ -18,6 +18,7 @@ along with evendim. If not, see <http://
+ #ifndef EVEDIM_QUANTUM_FITNESS_H
+ #define EVEDIM_QUANTUM_FITNESS_H
+ #include "BaseFitness.h"
++#include "Matrix.h"
+ #include "MersenneTwister.h"
+ #include "Minimizer.h"
+ #include "MinimizerParams.h"
+@@ -37,6 +38,7 @@ public:
+ 	typedef typename ChromosomeType::VectorStringType VectorStringType;
+ 	typedef typename PsimagLite::Vector<QuasiVectorType>::Type VectorQuasiVectorType;
+ 	typedef typename EvolutionType::NodeHelperType::NodeFactoryType NodeFactoryType;
++	typedef PsimagLite::Matrix<ComplexType> MatrixType;
+ 
+ 	enum class FunctionEnum { FITNESS,
+ 		                  DIFFERENCE };
+@@ -230,8 +232,7 @@ private:
+ 		return (str[0] == '0') ? true : false;
+ 	}
+ 
+-	// This is the function to fit to
+-	static void functionF(QuasiVectorType& dest, const QuasiVectorType& src)
++	static void functionF_orig(QuasiVectorType& dest, const QuasiVectorType& src)
+ 	{
+ 		// flip the first bit
+ 		QuasiVectorType dest2 = src;
+@@ -256,6 +257,27 @@ private:
+ 		dest.flipABit(src, bit);
+ 	}
+ 
++	static void functionF_NOT(QuasiVectorType& dest, const QuasiVectorType& src)
++        {
++		MatrixType notgate;
++		notgate.resize(2, 2);
++		notgate(0, 0) = 0; notgate(0, 1) = 1;
++		notgate(1, 0) = 1; notgate(1, 1) = 0;
++		dest = oneBitGate(src, 0, notgate);
++        }
++
++	static void functionF_CLONE(QuasiVectorType& dest, const QuasiVectorType& src)
++        {
++		dest = src;
++		dest.CNOT(0, 1); // FIX
++        }
++
++	// This is the function to fit to
++	static void functionF(QuasiVectorType& dest, const QuasiVectorType& src)
++        {
++		functionF_NOT(dest, src);
++        }
++
+ 	void computeDifferentialVector(QuasiVectorType& differential,
+ 	                               const VectorRealType& angles,
+ 	                               SizeType angleIndex)

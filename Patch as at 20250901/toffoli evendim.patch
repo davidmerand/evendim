@@ -1,0 +1,368 @@
+diff --git a/src/Fitness/QuantumFitness.h b/src/Fitness/QuantumFitness.h
+index 90151fa..97092d6 100644
+--- a/src/Fitness/QuantumFitness.h
++++ b/src/Fitness/QuantumFitness.h
+@@ -18,6 +18,7 @@ along with evendim. If not, see <http://www.gnu.org/licenses/>.
+ #ifndef EVEDIM_QUANTUM_FITNESS_H
+ #define EVEDIM_QUANTUM_FITNESS_H
+ #include "BaseFitness.h"
++#include "Matrix.h"
+ #include "MersenneTwister.h"
+ #include "Minimizer.h"
+ #include "MinimizerParams.h"
+@@ -37,6 +38,7 @@ public:
+ 	typedef typename ChromosomeType::VectorStringType VectorStringType;
+ 	typedef typename PsimagLite::Vector<QuasiVectorType>::Type VectorQuasiVectorType;
+ 	typedef typename EvolutionType::NodeHelperType::NodeFactoryType NodeFactoryType;
++	typedef PsimagLite::Matrix<ComplexType> MatrixType;
+ 
+ 	enum class FunctionEnum { FITNESS,
+ 		                  DIFFERENCE };
+@@ -230,8 +232,7 @@ private:
+ 		return (str[0] == '0') ? true : false;
+ 	}
+ 
+-	// This is the function to fit to
+-	static void functionF(QuasiVectorType& dest, const QuasiVectorType& src)
++	static void functionF_orig(QuasiVectorType& dest, const QuasiVectorType& src)
+ 	{
+ 		// flip the first bit
+ 		QuasiVectorType dest2 = src;
+@@ -256,6 +257,87 @@ private:
+ 		dest.flipABit(src, bit);
+ 	}
+ 
++	static void functionF_NOT(QuasiVectorType& dest, const QuasiVectorType& src)
++        {
++		MatrixType notgate;
++		notgate.resize(2, 2);
++		notgate(0, 0) = 0; notgate(0, 1) = 1;
++		notgate(1, 0) = 1; notgate(1, 1) = 0;
++		dest = oneBitGate(src, 0, notgate);
++        }
++
++	static void functionF_SQRTNOT(QuasiVectorType& dest, const QuasiVectorType& src)
++        {
++		MatrixType notgate;
++		notgate.resize(2, 2);
++		notgate(0, 0) = ComplexType(0.5, 0.5); notgate(0, 1) = ComplexType(0.5,-0.5);
++		notgate(1, 0) = ComplexType(0.5,-0.5); notgate(1, 1) = ComplexType(0.5, 0.5);
++		dest = oneBitGate(src, 0, notgate);
++        }
++
++	// trace out the second qubit and then approximate the first qubit
++	// by finding the nearest rank 1 matrix. Then copy tensor-square
++	// the result to obtain a "cloned" qubit
++	static inline double norm2(ComplexType c)
++	{
++		double r = real(c), i = imag(c);
++		return r*r + i*i;
++	}
++
++	static void functionF_CLONE(QuasiVectorType& dest, const QuasiVectorType& src)
++        {
++		MatrixType density, density2;
++		density.resize(2, 2);
++		density(0,0) = norm2(src.getEntry(0))+norm(src.getEntry(1));
++		density(1,1) = norm2(src.getEntry(2))+norm(src.getEntry(3));
++                density(0,1) = src.getEntry(0)*conj(src.getEntry(2)) + src.getEntry(1)*conj(src.getEntry(3));
++		density(1,0) = conj(density(0,1));
++		density2.resize(2,2);
++		density2(0,0) = density(0,0)*density(0,0) + density(0,1)*density(1,0);
++		density2(0,1) = density(0,0)*density(0,1) + density(0,1)*density(1,1);
++		density2(1,0) = density(1,0)*density(0,0) + density(1,1)*density(1,0);
++		density2(1,1) = density(1,0)*density(0,1) + density(1,1)*density(1,1);
++
++		double b = real(- density2(0,0) - density2(1,1));
++		double c = norm2(density2(0,1));
++		double singular1 = (-b+sqrt(b*b-4*c))/2;
++		double singular2 = (-b-sqrt(b*b-4*c))/2;
++		ComplexType domsingular, x, y;
++
++		if (abs(singular1) > abs(singular2)) {
++			domsingular = singular1;
++		} else {
++			domsingular = singular2;
++		}
++		if (density2(0,1) == ComplexType(0)) {
++			x = ComplexType(0);
++			y = ComplexType(1);
++		} else {
++			ComplexType B = density2(0,1);
++			double b = norm2(B);
++			ComplexType AS = ComplexType(domsingular)-density2(0,0);
++			double as = norm2(AS);
++			x = ComplexType(sqrt(b/(as+b)));
++			y = AS*x/B;
++		}
++		dest = src;
++		dest.setEntry(0, x*x);
++		dest.setEntry(1, x*y);
++		dest.setEntry(2, y*x);
++		dest.setEntry(3, y*y);
++        }
++
++	static void functionF_SWAP(QuasiVectorType& dest, const QuasiVectorType& src)
++        {
++		dest = SWAP(src, 0, 1);
++        }
++
++	// This is the function to fit to
++	static void functionF(QuasiVectorType& dest, const QuasiVectorType& src)
++        {
++		functionF_SWAP(dest, src);
++        }
++
+ 	void computeDifferentialVector(QuasiVectorType& differential,
+ 	                               const VectorRealType& angles,
+ 	                               SizeType angleIndex)
+diff --git a/src/Makefile b/src/Makefile
+index 0fb1ba4..9ec1a91 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -1,5 +1,5 @@
+ include Config.make
+-CPPFLAGS += -I../../PsimagLite -I../../PsimagLite/src -IEngine
++CPPFLAGS += -I../../PsimagLite -I../../PsimagLite/src -IEngine -I/usr/pkg/include
+ # Comment out below in order to run with XACC
+ 
+ all: gep2 quantumGep quantumIndividual graphGen isGraphConnected testPauliMatrixExpand testSchwinger
+@@ -64,3 +64,15 @@ clean: Makefile.dep
+ 	rm -f core* gep2 *.o *.dep
+ 
+ include Makefile.dep
++
++notgate: quantumGep ../yorick/notgate.ain
++	./quantumGep -f ../yorick/notgate.ain
++
++sqrtnot: quantumGep ../yorick/sqrtnot.ain
++	./quantumGep -f ../yorick/sqrtnot.ain
++
++cloning: quantumGep ../yorick/cloning.ain
++	./quantumGep -f ../yorick/cloning.ain
++
++swapgate: quantumGep ../yorick/swap.ain
++	./quantumGep -f ../yorick/swap.ain
+diff --git a/src/Primitives/QuantumCircuit.h b/src/Primitives/QuantumCircuit.h
+index e339a1d..0ca9cc6 100644
+--- a/src/Primitives/QuantumCircuit.h
++++ b/src/Primitives/QuantumCircuit.h
+@@ -33,6 +33,64 @@ along with evendim. If not, see <http://www.gnu.org/licenses/>.
+ 
+ namespace Gep {
+ 
++template <typename VectorValueType>
++class ToffoliGate : public PsimagLite::Node<VectorValueType,
++                                                  typename PsimagLite::Real<typename VectorValueType::value_type::value_type>::Type> {
++
++private:
++
++	static SizeType numberOfBits_;
++	PsimagLite::String code_;
++	SizeType bitNumber1_;
++	SizeType bitNumber2_;
++	SizeType bitNumber3_;
++
++public:
++
++	typedef typename VectorValueType::value_type ValueType;
++	typedef typename ValueType::value_type ComplexOrRealType;
++	typedef PsimagLite::Matrix<ComplexOrRealType> MatrixType;
++	typedef PsimagLite::Node<VectorValueType, typename PsimagLite::Real<typename VectorValueType::value_type::value_type>::Type> NodeType;
++	typedef typename NodeType::VectorAnglesType VectorAnglesType;
++
++	ToffoliGate(SizeType bitNumber1, SizeType bitNumber2, SizeType bitNumber3)
++	    : bitNumber1_(bitNumber1)
++	    , bitNumber2_(bitNumber2)
++	    , bitNumber3_(bitNumber3)
++	{
++ 		code_ = "T";
++		code_ += ttos(bitNumber1);
++		code_ += "_";
++		code_ += ttos(bitNumber2);
++		code_ += "_";
++		code_ += ttos(bitNumber3);
++	}
++
++	ToffoliGate* clone() const
++	{
++		return new ToffoliGate(*this);
++	}
++
++	virtual PsimagLite::String code() const { return code_; }
++	virtual SizeType arity() const { return 1; }
++
++	virtual ValueType exec(const VectorValueType& v,
++	                       const VectorAnglesType*,
++	                       SizeType&) const
++	{
++		return exec(v);
++	}
++
++	virtual ValueType exec(const VectorValueType& v) const
++	{
++		assert(v.size() == 1);
++
++		const ValueType& vv = v[0];
++		return Toffoli(vv, bitNumber1_, bitNumber2_, bitNumber3_);
++	}
++
++}; // class ToffoliGate
++
+ template <typename ValueType_>
+ class QuantumCircuit {
+ 
+@@ -49,6 +107,7 @@ public:
+ 	typedef ValueType_ ValueType;
+ 	typedef QuantumOneBitGate<VectorValueType> QuantumOneBitGateType;
+ 	typedef QuantumTwoBitGate<VectorValueType> QuantumTwoBitGateType;
++	typedef ToffoliGate<VectorValueType> ToffoliGateType;
+ 	typedef typename QuantumOneBitGateType::MatrixType MatrixType;
+ 	typedef OneBitGateLibrary<typename ValueType::value_type> OneBitGateLibraryType;
+ 	typedef TwoBitGateLibrary<typename ValueType::value_type> TwoBitGateLibraryType;
+@@ -201,6 +260,31 @@ private:
+ 			}
+ 		}
+ 
++		it = std::find(tmpGates.begin(), tmpGates.end(), "t");
++		if (it != tmpGates.end()) {
++			NodeType* toff;
++			tmpGates.erase(it);
++			// add Toffoli gates
++			for (SizeType i = 0; i < numberOfBits_; ++i) {
++				for (SizeType j = i + 1; j < numberOfBits_; ++j) {
++					for (SizeType k = j + 1; k < numberOfBits_; ++k) {
++						toff = new ToffoliGateType(i, j, k);
++						nodes.push_back(toff);
++						toff = new ToffoliGateType(i, k, j);
++						nodes.push_back(toff);
++						toff = new ToffoliGateType(j, i, k);
++						nodes.push_back(toff);
++						toff = new ToffoliGateType(j, k, i);
++						nodes.push_back(toff);
++						toff = new ToffoliGateType(k, i, j);
++						nodes.push_back(toff);
++						toff = new ToffoliGateType(k, j, i);
++						nodes.push_back(toff);
++					}
++				}
++			}
++		}
++
+ 		customGates(nodes, tmpGates);
+ 
+ 		if (tmpGates.size() > 0) {
+diff --git a/src/Primitives/QuasiVector.hh b/src/Primitives/QuasiVector.hh
+index f2a6a13..64602c3 100644
+--- a/src/Primitives/QuasiVector.hh
++++ b/src/Primitives/QuasiVector.hh
+@@ -40,17 +40,38 @@ public:
+ 		}
+ 	}
+ 
+-	void setEntry(unsigned int ind, const ComplexOrRealType& val)
++	ComplexOrRealType getEntry(unsigned int ind) const
+ 	{
+-		auto itr = std::find(indices_.begin(), indices_.end(), ind);
+-		if (itr == indices_.end()) {
+-			indices_.push_back(ind);
+-			values_.push_back(val);
++		if (isExp_) {
++			return data_[ind];
++		} else {
++			auto itr = std::find(indices_.begin(), indices_.end(), ind);
++			if (itr == indices_.end()) {
++				return 0;
++			}
++			else {
++				SizeType pos = itr - indices_.begin();
++				assert(values_.size() > pos);
++				return values_[pos];
++			}
+ 		}
+-		else {
+-			SizeType pos = itr - indices_.begin();
+-			assert(values_.size() > pos);
+-			values_[pos] = val;
++	}
++
++	void setEntry(unsigned int ind, const ComplexOrRealType& val)
++	{
++		if (isExp_) {
++			data_[ind] = val;
++		} else {
++			auto itr = std::find(indices_.begin(), indices_.end(), ind);
++			if (itr == indices_.end()) {
++				indices_.push_back(ind);
++				values_.push_back(val);
++			}
++			else {
++				SizeType pos = itr - indices_.begin();
++				assert(values_.size() > pos);
++				values_[pos] = val;
++			}
+ 		}
+ 	}
+ 
+@@ -192,6 +213,61 @@ public:
+ 		return w;
+ 	}
+ 
++	friend QuasiVector Toffoli(const QuasiVector& src, SizeType bit1, SizeType bit2, SizeType bit3)
++	{
++		const int n = src.size();
++
++		QuasiVector w(n);
++		w.blowUp(n);
++		SizeType control1 = (1 << bit1);
++		SizeType control2 = (1 << bit2);
++		SizeType target   = (1 << bit3);
++                SizeType mask1    = control1 | control2;
++                SizeType mask2    = control1 | control2 | target;
++		for (int i = 0; i < n; ++i) {
++			if ((i & mask2) == mask1) {
++                		w.data_[i^target] = src.data_[i];
++                		w.data_[i] = src.data_[i^target];
++			} else {
++				w.data_[i] = src.data_[i];
++			}
++		}
++
++		return w;
++	}
++
++	friend QuasiVector SWAP(const QuasiVector& src, SizeType bit1, SizeType bit2)
++	{
++		const int n = src.size();
++
++		QuasiVector w(n);
++		w.blowUp(n);
++		SizeType index1 = (1 << bit1);
++		SizeType index2 = (1 << bit2);
++		SizeType mask = index1 | index2;
++		for (int i = 0; i < n; ++i) {
++			if (((i & mask) == index1) || ((i & mask) == index2)) {
++                		w.data_[i^mask] = src.data_[i];
++			} else {
++				w.data_[i] = src.data_[i];
++			}
++		}
++
++		return w;
++	}
++
++        friend QuasiVector multiply(const PsimagLite::Matrix<ComplexOrRealType>& m, const QuasiVector& v)
++	{
++		QuasiVector w(m.rows());
++		for (int i = 0; i < m.rows(); ++i) {
++			w.setEntry(i) = 0;
++			for (int j = 0; j < m.cols(); ++j) {
++				w.setEntry(i) = w.getEntry(i) + m(i, j) * v.data_[j];
++			}
++		}
++		return w;
++	}
++
+ 	// <v1|H|v2>
+ 	// caching has been disabled here!
+ 	template <typename SomeMatrixType>

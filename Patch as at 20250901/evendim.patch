@@ -1,0 +1,201 @@
+$NetBSD$
+
+--- ./src/Fitness/QuantumFitness.h.orig	2025-01-14 07:15:00.698749977 +0000
++++ ./src/Fitness/QuantumFitness.h
+@@ -18,6 +18,7 @@ along with evendim. If not, see <http://
+ #ifndef EVEDIM_QUANTUM_FITNESS_H
+ #define EVEDIM_QUANTUM_FITNESS_H
+ #include "BaseFitness.h"
++#include "Matrix.h"
+ #include "MersenneTwister.h"
+ #include "Minimizer.h"
+ #include "MinimizerParams.h"
+@@ -37,6 +38,7 @@ public:
+ 	typedef typename ChromosomeType::VectorStringType VectorStringType;
+ 	typedef typename PsimagLite::Vector<QuasiVectorType>::Type VectorQuasiVectorType;
+ 	typedef typename EvolutionType::NodeHelperType::NodeFactoryType NodeFactoryType;
++	typedef PsimagLite::Matrix<ComplexType> MatrixType;
+ 
+ 	enum class FunctionEnum { FITNESS,
+ 		                  DIFFERENCE };
+@@ -230,8 +232,7 @@ private:
+ 		return (str[0] == '0') ? true : false;
+ 	}
+ 
+-	// This is the function to fit to
+-	static void functionF(QuasiVectorType& dest, const QuasiVectorType& src)
++	static void functionF_orig(QuasiVectorType& dest, const QuasiVectorType& src)
+ 	{
+ 		// flip the first bit
+ 		QuasiVectorType dest2 = src;
+@@ -256,6 +257,82 @@ private:
+ 		dest.flipABit(src, bit);
+ 	}
+ 
++	static void functionF_NOT(QuasiVectorType& dest, const QuasiVectorType& src)
++        {
++		MatrixType notgate;
++		notgate.resize(2, 2);
++		notgate(0, 0) = 0; notgate(0, 1) = 1;
++		notgate(1, 0) = 1; notgate(1, 1) = 0;
++		dest = oneBitGate(src, 0, notgate);
++        }
++
++	static void functionF_SQRTNOT(QuasiVectorType& dest, const QuasiVectorType& src)
++        {
++		MatrixType notgate;
++		notgate.resize(2, 2);
++		notgate(0, 0) = ComplexType(0.5, 0.5); notgate(0, 1) = ComplexType(0.5,-0.5);
++		notgate(1, 0) = ComplexType(0.5,-0.5); notgate(1, 1) = ComplexType(0.5, 0.5);
++		dest = oneBitGate(src, 0, notgate);
++        }
++
++	// trace out the second qubit and then approximate the first qubit
++	// by finding the nearest rank 1 matrix. Then copy tensor-square
++	// the result to obtain a "cloned" qubit
++	static inline double norm2(ComplexType c)
++	{
++		double r = real(c), i = imag(c);
++		return r*r + i*i;
++	}
++
++	static void functionF_CLONE(QuasiVectorType& dest, const QuasiVectorType& src)
++        {
++		MatrixType density, density2;
++		density.resize(2, 2);
++		density(0,0) = norm2(src.getEntry(0))+norm(src.getEntry(1));
++		density(1,1) = norm2(src.getEntry(2))+norm(src.getEntry(3));
++                density(0,1) = src.getEntry(0)*conj(src.getEntry(2)) + src.getEntry(1)*conj(src.getEntry(3));
++		density(1,0) = conj(density(0,1));
++		density2.resize(2,2);
++		density2(0,0) = density(0,0)*density(0,0) + density(0,1)*density(1,0);
++		density2(0,1) = density(0,0)*density(0,1) + density(0,1)*density(1,1);
++		density2(1,0) = density(1,0)*density(0,0) + density(1,1)*density(1,0);
++		density2(1,1) = density(1,0)*density(0,1) + density(1,1)*density(1,1);
++
++		double b = real(- density2(0,0) - density2(1,1));
++		double c = norm2(density2(0,1));
++		double singular1 = (-b+sqrt(b*b-4*c))/2;
++		double singular2 = (-b-sqrt(b*b-4*c))/2;
++		ComplexType domsingular, x, y;
++
++		if (abs(singular1) > abs(singular2)) {
++			domsingular = singular1;
++		} else {
++			domsingular = singular2;
++		}
++		if (density2(0,1) == ComplexType(0)) {
++			x = ComplexType(0);
++			y = ComplexType(1);
++		} else {
++			ComplexType B = density2(0,1);
++			double b = norm2(B);
++			ComplexType AS = ComplexType(domsingular)-density2(0,0);
++			double as = norm2(AS);
++			x = ComplexType(sqrt(b/(as+b)));
++			y = AS*x/B;
++		}
++		dest = src;
++		dest.setEntry(0, x*x);
++		dest.setEntry(1, x*y);
++		dest.setEntry(2, y*x);
++		dest.setEntry(3, y*y);
++        }
++
++	// This is the function to fit to
++	static void functionF(QuasiVectorType& dest, const QuasiVectorType& src)
++        {
++		functionF_SQRTNOT(dest, src);
++        }
++
+ 	void computeDifferentialVector(QuasiVectorType& differential,
+ 	                               const VectorRealType& angles,
+ 	                               SizeType angleIndex)
+$NetBSD$
+
+--- ./src/Primitives/QuasiVector.hh.orig	2025-01-27 07:04:55.740033648 +0000
++++ ./src/Primitives/QuasiVector.hh
+@@ -40,17 +40,38 @@ public:
+ 		}
+ 	}
+ 
+-	void setEntry(unsigned int ind, const ComplexOrRealType& val)
++	ComplexOrRealType getEntry(unsigned int ind) const
+ 	{
+-		auto itr = std::find(indices_.begin(), indices_.end(), ind);
+-		if (itr == indices_.end()) {
+-			indices_.push_back(ind);
+-			values_.push_back(val);
++		if (isExp_) {
++			return data_[ind];
++		} else {
++			auto itr = std::find(indices_.begin(), indices_.end(), ind);
++			if (itr == indices_.end()) {
++				return 0;
++			}
++			else {
++				SizeType pos = itr - indices_.begin();
++				assert(values_.size() > pos);
++				return values_[pos];
++			}
+ 		}
+-		else {
+-			SizeType pos = itr - indices_.begin();
+-			assert(values_.size() > pos);
+-			values_[pos] = val;
++	}
++
++	void setEntry(unsigned int ind, const ComplexOrRealType& val)
++	{
++		if (isExp_) {
++			data_[ind] = val;
++		} else {
++			auto itr = std::find(indices_.begin(), indices_.end(), ind);
++			if (itr == indices_.end()) {
++				indices_.push_back(ind);
++				values_.push_back(val);
++			}
++			else {
++				SizeType pos = itr - indices_.begin();
++				assert(values_.size() > pos);
++				values_[pos] = val;
++			}
+ 		}
+ 	}
+ 
+@@ -192,6 +213,18 @@ public:
+ 		return w;
+ 	}
+ 
++        friend QuasiVector multiply(const PsimagLite::Matrix<ComplexOrRealType>& m, const QuasiVector& v)
++	{
++		QuasiVector w(m.rows());
++		for (int i = 0; i < m.rows(); ++i) {
++			w.setEntry(i) = 0;
++			for (int j = 0; j < m.cols(); ++j) {
++				w.setEntry(i) = w.getEntry(i) + m(i, j) * v.data_[j];
++			}
++		}
++		return w;
++	}
++
+ 	// <v1|H|v2>
+ 	// caching has been disabled here!
+ 	template <typename SomeMatrixType>
+$NetBSD$
+
+--- ./src/Makefile.orig	2025-01-14 07:23:54.405900323 +0000
++++ ./src/Makefile
+@@ -64,3 +64,12 @@ clean: Makefile.dep
+ 	rm -f core* gep2 *.o *.dep
+ 
+ include Makefile.dep
++
++notgate: quantumGep ../yorick/notgate.ain
++	./quantumGep -f ../yorick/notgate.ain
++
++sqrtnot: quantumGep ../yorick/sqrtnot.ain
++	./quantumGep -f ../yorick/sqrtnot.ain
++
++cloning: quantumGep ../yorick/cloning.ain
++	./quantumGep -f ../yorick/cloning.ain

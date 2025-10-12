@@ -1,0 +1,15 @@
+##Ainur1.0
+
+HeadSize=4;
+Population=80;
+Generations=200;
+NumberOfBits=1;
+MinimizerTolerance=0.1;
+Primitives="Sy,Sz,P";
+MinimizerDelta=0.01;
+MinimizerDelta2=0.01;
+Samples=50;
+MinimizerVerbose=0;
+ProgressBar=1;
+MinimizerAlgorithm="ConjugateGradient";
+RunType="FunctionFit";

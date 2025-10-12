@@ -1,0 +1,795 @@
+gep2.o: gep2.cpp Engine/Engine.h ../../PsimagLite/src/AST/Tree.h \
+ ../../PsimagLite/src/AST/../PsimagLite.h \
+ ../../PsimagLite/src/AST/../AnsiColors.h \
+ ../../PsimagLite/src/AST/../AllocatorCpu.h \
+ ../../PsimagLite/src/AST/../Concurrency.h \
+ ../../PsimagLite/src/AST/../CodeSectionParams.h \
+ ../../PsimagLite/src/AST/../FloatingPoint.h \
+ ../../PsimagLite/src/AST/../LAPACK.h \
+ ../../PsimagLite/src/AST/../LabelDisabled.h \
+ ../../PsimagLite/src/AST/../Vector.h \
+ ../../PsimagLite/src/AST/../../loki/TypeTraits.h \
+ ../../PsimagLite/src/AST/../../loki/Typelist.h \
+ ../../PsimagLite/src/AST/../../loki/NullType.h \
+ ../../PsimagLite/src/AST/../../loki/TypeManip.h \
+ ../../PsimagLite/src/AST/../../loki/TypelistMacros.h \
+ ../../PsimagLite/src/AST/../../loki/Sequence.h \
+ ../../PsimagLite/src/AST/../Complex.h ../../PsimagLite/src/AST/../Mpi.h \
+ ../../PsimagLite/src/AST/../MpiNo.h \
+ ../../PsimagLite/src/AST/../MicroArchitecture.h \
+ ../../PsimagLite/src/AST/../PsiBase64.h \
+ ../../PsimagLite/src/AST/../Io/IoSerializerStub.h \
+ ../../PsimagLite/src/AST/../Io/IoNgSerializer.h \
+ ../../PsimagLite/src/AST/../Io/../Complex.h \
+ ../../PsimagLite/src/AST/../Io/../TypeToString.h \
+ ../../PsimagLite/src/AST/../Io/../AllocatorCpu.h \
+ ../../PsimagLite/src/AST/../Io/../Vector.h \
+ ../../PsimagLite/src/AST/../Io/TypeToH5.h \
+ ../../PsimagLite/src/AST/../Io/../AllocatorCpu.h \
+ /usr/include/hdf5/serial/H5Cpp.h /usr/include/hdf5/serial/H5Include.h \
+ /usr/include/hdf5/serial/hdf5.h /usr/include/hdf5/serial/H5public.h \
+ /usr/include/hdf5/serial/H5pubconf.h \
+ /usr/include/hdf5/serial/H5version.h \
+ /usr/include/hdf5/serial/H5api_adpt.h \
+ /usr/include/hdf5/serial/H5Apublic.h \
+ /usr/include/hdf5/serial/H5Ipublic.h \
+ /usr/include/hdf5/serial/H5Opublic.h \
+ /usr/include/hdf5/serial/H5Lpublic.h \
+ /usr/include/hdf5/serial/H5Tpublic.h \
+ /usr/include/hdf5/serial/H5ACpublic.h \
+ /usr/include/hdf5/serial/H5Cpublic.h \
+ /usr/include/hdf5/serial/H5Dpublic.h \
+ /usr/include/hdf5/serial/H5Epublic.h \
+ /usr/include/hdf5/serial/H5Epubgen.h \
+ /usr/include/hdf5/serial/H5Fpublic.h \
+ /usr/include/hdf5/serial/H5FDpublic.h \
+ /usr/include/hdf5/serial/H5Gpublic.h \
+ /usr/include/hdf5/serial/H5MMpublic.h \
+ /usr/include/hdf5/serial/H5Ppublic.h \
+ /usr/include/hdf5/serial/H5Spublic.h \
+ /usr/include/hdf5/serial/H5Zpublic.h \
+ /usr/include/hdf5/serial/H5PLpublic.h \
+ /usr/include/hdf5/serial/H5Rpublic.h /usr/include/hdf5/serial/H5FDcore.h \
+ /usr/include/hdf5/serial/H5FDdirect.h \
+ /usr/include/hdf5/serial/H5FDfamily.h \
+ /usr/include/hdf5/serial/H5FDhdfs.h /usr/include/hdf5/serial/H5FDlog.h \
+ /usr/include/hdf5/serial/H5FDmirror.h /usr/include/hdf5/serial/H5FDmpi.h \
+ /usr/include/hdf5/serial/H5FDmpio.h /usr/include/hdf5/serial/H5FDmulti.h \
+ /usr/include/hdf5/serial/H5FDros3.h /usr/include/hdf5/serial/H5FDsec2.h \
+ /usr/include/hdf5/serial/H5FDsplitter.h \
+ /usr/include/hdf5/serial/H5FDstdio.h \
+ /usr/include/hdf5/serial/H5Exception.h \
+ /usr/include/hdf5/serial/H5IdComponent.h \
+ /usr/include/hdf5/serial/H5DataSpace.h \
+ /usr/include/hdf5/serial/H5PropList.h \
+ /usr/include/hdf5/serial/H5FaccProp.h \
+ /usr/include/hdf5/serial/H5FcreatProp.h \
+ /usr/include/hdf5/serial/H5OcreatProp.h \
+ /usr/include/hdf5/serial/H5DcreatProp.h \
+ /usr/include/hdf5/serial/H5DxferProp.h \
+ /usr/include/hdf5/serial/H5LcreatProp.h \
+ /usr/include/hdf5/serial/H5LaccProp.h \
+ /usr/include/hdf5/serial/H5DaccProp.h \
+ /usr/include/hdf5/serial/H5Location.h \
+ /usr/include/hdf5/serial/H5Classes.h /usr/include/hdf5/serial/H5Object.h \
+ /usr/include/hdf5/serial/H5AbstractDs.h \
+ /usr/include/hdf5/serial/H5Attribute.h \
+ /usr/include/hdf5/serial/H5DataType.h \
+ /usr/include/hdf5/serial/H5AtomType.h \
+ /usr/include/hdf5/serial/H5PredType.h \
+ /usr/include/hdf5/serial/H5EnumType.h \
+ /usr/include/hdf5/serial/H5IntType.h \
+ /usr/include/hdf5/serial/H5FloatType.h \
+ /usr/include/hdf5/serial/H5StrType.h \
+ /usr/include/hdf5/serial/H5CompType.h \
+ /usr/include/hdf5/serial/H5ArrayType.h \
+ /usr/include/hdf5/serial/H5VarLenType.h \
+ /usr/include/hdf5/serial/H5DataSet.h \
+ /usr/include/hdf5/serial/H5CommonFG.h /usr/include/hdf5/serial/H5Group.h \
+ /usr/include/hdf5/serial/H5File.h /usr/include/hdf5/serial/H5Library.h \
+ ../../PsimagLite/src/AST/../Random48.h \
+ ../../PsimagLite/src/AST/../TypeToString.h Engine/Chromosome.h \
+ Engine/Gene.h Engine/ProgramGlobals.h ../../PsimagLite/src/PsimagLite.h \
+ ../../PsimagLite/src/Vector.h ../../PsimagLite/src/TypeToString.h \
+ ../../PsimagLite/src/Parallelizer2.h ../../PsimagLite/src/Concurrency.h \
+ ../../PsimagLite/src/Vector.h ../../PsimagLite/src/Parallelizer2Serial.h \
+ ../../PsimagLite/src/CodeSectionParams.h Engine/ParametersEngine.h \
+ Engine/InputCheck.h ../../PsimagLite/src/InputNg.h \
+ ../../PsimagLite/src/Ainur/Ainur.h \
+ ../../PsimagLite/src/Ainur/AinurSpirit.h \
+ ../../PsimagLite/src/Ainur/../PsimagLite.h \
+ ../../PsimagLite/src/Ainur/../TypeToString.h \
+ ../../PsimagLite/src/Ainur/../Vector.h \
+ ../../PsimagLite/src/Ainur/AinurLexical.h \
+ ../../PsimagLite/src/Ainur/AinurState.h \
+ ../../PsimagLite/src/Ainur/../Matrix.h \
+ ../../PsimagLite/src/Ainur/../BLAS.h \
+ ../../PsimagLite/src/Ainur/../AllocatorCpu.h \
+ ../../PsimagLite/src/Ainur/../Complex.h \
+ ../../PsimagLite/src/Ainur/../Io/IoSerializerStub.h \
+ ../../PsimagLite/src/Ainur/../LAPACK.h \
+ ../../PsimagLite/src/Ainur/../LapackExtra.h \
+ ../../PsimagLite/src/Ainur/../Mpi.h \
+ ../../PsimagLite/src/Ainur/../TypeToString.h \
+ ../../PsimagLite/src/Ainur/../Vector.h \
+ ../../PsimagLite/src/Ainur/AinurConvert.hh \
+ ../../PsimagLite/src/Ainur/AinurMacros.hh \
+ ../../PsimagLite/src/Ainur/AinurDoubleOrFloat.h \
+ ../../PsimagLite/src/Map.h ../../PsimagLite/src/AllocatorCpu.h \
+ ../../PsimagLite/src/Matrix.h ../../PsimagLite/src/PsiBase64.h \
+ ../../PsimagLite/loki/TypeTraits.h Engine/Options.h \
+ ../../PsimagLite/src/Sort.h Engine/Evolution.h \
+ ../../PsimagLite/src/MersenneTwister.h Engine/NodeHelper.hh \
+ Engine/../Fitness/LinearTreeExec.hh \
+ Engine/../Fitness/LinearTreeExecCPU.hh ../../PsimagLite/src/AST/Node.h \
+ ../../PsimagLite/src/AST/../Vector.h Engine/../Fitness/HamiltonianCPU.hh \
+ Engine/../Fitness/../Engine/InputCheck.h \
+ Engine/../Fitness/../Primitives/QuasiVector.hh \
+ Engine/../Fitness/../Primitives/../Engine/ProgramGlobals.h \
+ ../../PsimagLite/src/Matrix.h ../../PsimagLite/src/CrsMatrix.h \
+ ../../PsimagLite/src/BLAS.h ../../PsimagLite/src/Complex.h \
+ ../../PsimagLite/src/Io/IoSerializerStub.h ../../PsimagLite/src/Mpi.h \
+ ../../PsimagLite/src/Sort.h \
+ Engine/../Fitness/HamiltonianFromExpression.h \
+ Engine/../Fitness/AuxForHamSpec.h \
+ ../../PsimagLite/src/CanonicalExpression.h \
+ ../../PsimagLite/src/PsimagLite.h ../../PsimagLite/src/QuasiCanonical.h \
+ ../../PsimagLite/src/AST/ExpressionForAST.h \
+ ../../PsimagLite/src/AST/Node.h ../../PsimagLite/src/AST/Tree.h \
+ ../../PsimagLite/src/AST/PlusMinusMultiplyDivide.h \
+ ../../PsimagLite/src/AST/AdditionalFunctions.h \
+ ../../PsimagLite/src/CmplxOrReal.h Engine/../Fitness/HamiltonianSpec.h \
+ Engine/../Fitness/../Primitives/QuantumOneBitGate.h \
+ Engine/../Fitness/../Primitives/CustomQuantumGates.hh \
+ Engine/../Fitness/../Primitives/../Engine/InputCheck.h \
+ ../../PsimagLite/src/AST/ExpressionForAST.h \
+ ../../PsimagLite/src/AST/PlusMinusMultiplyDivide.h \
+ Engine/../Fitness/../Primitives/QuasiVector.hh \
+ Engine/../Fitness/IsingGraph.hh \
+ Engine/../Fitness/../Engine/ProgramGlobals.h Engine/../Fitness/Graph.hh \
+ ../../PsimagLite/src/BitManip.h Engine/../Fitness/SchwingerModel.hh \
+ Engine/NodeFactory.h ../../PsimagLite/src/Concurrency.h \
+ Engine/UnderlyingType.hh Engine/../Primitives/QuasiVector.hh \
+ Engine/NodeFactory.h Engine/UnderlyingType.hh Fitness/Example1Fitness.h \
+ Engine/BaseFitness.h Fitness/Example2Fitness.h Fitness/Example3Fitness.h \
+ Primitives/PlusMinusMultiplyDivide.h Primitives/CanonicalFormEmpty.h \
+ Engine/NodeAdf.h Engine/NodeDc.h
+quantumGep.o: quantumGep.cpp Engine/Engine.h \
+ ../../PsimagLite/src/AST/Tree.h ../../PsimagLite/src/AST/../PsimagLite.h \
+ ../../PsimagLite/src/AST/../AnsiColors.h \
+ ../../PsimagLite/src/AST/../AllocatorCpu.h \
+ ../../PsimagLite/src/AST/../Concurrency.h \
+ ../../PsimagLite/src/AST/../CodeSectionParams.h \
+ ../../PsimagLite/src/AST/../FloatingPoint.h \
+ ../../PsimagLite/src/AST/../LAPACK.h \
+ ../../PsimagLite/src/AST/../LabelDisabled.h \
+ ../../PsimagLite/src/AST/../Vector.h \
+ ../../PsimagLite/src/AST/../../loki/TypeTraits.h \
+ ../../PsimagLite/src/AST/../../loki/Typelist.h \
+ ../../PsimagLite/src/AST/../../loki/NullType.h \
+ ../../PsimagLite/src/AST/../../loki/TypeManip.h \
+ ../../PsimagLite/src/AST/../../loki/TypelistMacros.h \
+ ../../PsimagLite/src/AST/../../loki/Sequence.h \
+ ../../PsimagLite/src/AST/../Complex.h ../../PsimagLite/src/AST/../Mpi.h \
+ ../../PsimagLite/src/AST/../MpiNo.h \
+ ../../PsimagLite/src/AST/../MicroArchitecture.h \
+ ../../PsimagLite/src/AST/../PsiBase64.h \
+ ../../PsimagLite/src/AST/../Io/IoSerializerStub.h \
+ ../../PsimagLite/src/AST/../Io/IoNgSerializer.h \
+ ../../PsimagLite/src/AST/../Io/../Complex.h \
+ ../../PsimagLite/src/AST/../Io/../TypeToString.h \
+ ../../PsimagLite/src/AST/../Io/../AllocatorCpu.h \
+ ../../PsimagLite/src/AST/../Io/../Vector.h \
+ ../../PsimagLite/src/AST/../Io/TypeToH5.h \
+ ../../PsimagLite/src/AST/../Io/../AllocatorCpu.h \
+ /usr/include/hdf5/serial/H5Cpp.h /usr/include/hdf5/serial/H5Include.h \
+ /usr/include/hdf5/serial/hdf5.h /usr/include/hdf5/serial/H5public.h \
+ /usr/include/hdf5/serial/H5pubconf.h \
+ /usr/include/hdf5/serial/H5version.h \
+ /usr/include/hdf5/serial/H5api_adpt.h \
+ /usr/include/hdf5/serial/H5Apublic.h \
+ /usr/include/hdf5/serial/H5Ipublic.h \
+ /usr/include/hdf5/serial/H5Opublic.h \
+ /usr/include/hdf5/serial/H5Lpublic.h \
+ /usr/include/hdf5/serial/H5Tpublic.h \
+ /usr/include/hdf5/serial/H5ACpublic.h \
+ /usr/include/hdf5/serial/H5Cpublic.h \
+ /usr/include/hdf5/serial/H5Dpublic.h \
+ /usr/include/hdf5/serial/H5Epublic.h \
+ /usr/include/hdf5/serial/H5Epubgen.h \
+ /usr/include/hdf5/serial/H5Fpublic.h \
+ /usr/include/hdf5/serial/H5FDpublic.h \
+ /usr/include/hdf5/serial/H5Gpublic.h \
+ /usr/include/hdf5/serial/H5MMpublic.h \
+ /usr/include/hdf5/serial/H5Ppublic.h \
+ /usr/include/hdf5/serial/H5Spublic.h \
+ /usr/include/hdf5/serial/H5Zpublic.h \
+ /usr/include/hdf5/serial/H5PLpublic.h \
+ /usr/include/hdf5/serial/H5Rpublic.h /usr/include/hdf5/serial/H5FDcore.h \
+ /usr/include/hdf5/serial/H5FDdirect.h \
+ /usr/include/hdf5/serial/H5FDfamily.h \
+ /usr/include/hdf5/serial/H5FDhdfs.h /usr/include/hdf5/serial/H5FDlog.h \
+ /usr/include/hdf5/serial/H5FDmirror.h /usr/include/hdf5/serial/H5FDmpi.h \
+ /usr/include/hdf5/serial/H5FDmpio.h /usr/include/hdf5/serial/H5FDmulti.h \
+ /usr/include/hdf5/serial/H5FDros3.h /usr/include/hdf5/serial/H5FDsec2.h \
+ /usr/include/hdf5/serial/H5FDsplitter.h \
+ /usr/include/hdf5/serial/H5FDstdio.h \
+ /usr/include/hdf5/serial/H5Exception.h \
+ /usr/include/hdf5/serial/H5IdComponent.h \
+ /usr/include/hdf5/serial/H5DataSpace.h \
+ /usr/include/hdf5/serial/H5PropList.h \
+ /usr/include/hdf5/serial/H5FaccProp.h \
+ /usr/include/hdf5/serial/H5FcreatProp.h \
+ /usr/include/hdf5/serial/H5OcreatProp.h \
+ /usr/include/hdf5/serial/H5DcreatProp.h \
+ /usr/include/hdf5/serial/H5DxferProp.h \
+ /usr/include/hdf5/serial/H5LcreatProp.h \
+ /usr/include/hdf5/serial/H5LaccProp.h \
+ /usr/include/hdf5/serial/H5DaccProp.h \
+ /usr/include/hdf5/serial/H5Location.h \
+ /usr/include/hdf5/serial/H5Classes.h /usr/include/hdf5/serial/H5Object.h \
+ /usr/include/hdf5/serial/H5AbstractDs.h \
+ /usr/include/hdf5/serial/H5Attribute.h \
+ /usr/include/hdf5/serial/H5DataType.h \
+ /usr/include/hdf5/serial/H5AtomType.h \
+ /usr/include/hdf5/serial/H5PredType.h \
+ /usr/include/hdf5/serial/H5EnumType.h \
+ /usr/include/hdf5/serial/H5IntType.h \
+ /usr/include/hdf5/serial/H5FloatType.h \
+ /usr/include/hdf5/serial/H5StrType.h \
+ /usr/include/hdf5/serial/H5CompType.h \
+ /usr/include/hdf5/serial/H5ArrayType.h \
+ /usr/include/hdf5/serial/H5VarLenType.h \
+ /usr/include/hdf5/serial/H5DataSet.h \
+ /usr/include/hdf5/serial/H5CommonFG.h /usr/include/hdf5/serial/H5Group.h \
+ /usr/include/hdf5/serial/H5File.h /usr/include/hdf5/serial/H5Library.h \
+ ../../PsimagLite/src/AST/../Random48.h \
+ ../../PsimagLite/src/AST/../TypeToString.h Engine/Chromosome.h \
+ Engine/Gene.h Engine/ProgramGlobals.h ../../PsimagLite/src/PsimagLite.h \
+ ../../PsimagLite/src/Vector.h ../../PsimagLite/src/TypeToString.h \
+ ../../PsimagLite/src/Parallelizer2.h ../../PsimagLite/src/Concurrency.h \
+ ../../PsimagLite/src/Vector.h ../../PsimagLite/src/Parallelizer2Serial.h \
+ ../../PsimagLite/src/CodeSectionParams.h Engine/ParametersEngine.h \
+ Engine/InputCheck.h ../../PsimagLite/src/InputNg.h \
+ ../../PsimagLite/src/Ainur/Ainur.h \
+ ../../PsimagLite/src/Ainur/AinurSpirit.h \
+ ../../PsimagLite/src/Ainur/../PsimagLite.h \
+ ../../PsimagLite/src/Ainur/../TypeToString.h \
+ ../../PsimagLite/src/Ainur/../Vector.h \
+ ../../PsimagLite/src/Ainur/AinurLexical.h \
+ ../../PsimagLite/src/Ainur/AinurState.h \
+ ../../PsimagLite/src/Ainur/../Matrix.h \
+ ../../PsimagLite/src/Ainur/../BLAS.h \
+ ../../PsimagLite/src/Ainur/../AllocatorCpu.h \
+ ../../PsimagLite/src/Ainur/../Complex.h \
+ ../../PsimagLite/src/Ainur/../Io/IoSerializerStub.h \
+ ../../PsimagLite/src/Ainur/../LAPACK.h \
+ ../../PsimagLite/src/Ainur/../LapackExtra.h \
+ ../../PsimagLite/src/Ainur/../Mpi.h \
+ ../../PsimagLite/src/Ainur/../TypeToString.h \
+ ../../PsimagLite/src/Ainur/../Vector.h \
+ ../../PsimagLite/src/Ainur/AinurConvert.hh \
+ ../../PsimagLite/src/Ainur/AinurMacros.hh \
+ ../../PsimagLite/src/Ainur/AinurDoubleOrFloat.h \
+ ../../PsimagLite/src/Map.h ../../PsimagLite/src/AllocatorCpu.h \
+ ../../PsimagLite/src/Matrix.h ../../PsimagLite/src/PsiBase64.h \
+ ../../PsimagLite/loki/TypeTraits.h Engine/Options.h \
+ ../../PsimagLite/src/Sort.h Engine/Evolution.h \
+ ../../PsimagLite/src/MersenneTwister.h Engine/NodeHelper.hh \
+ Engine/../Fitness/LinearTreeExec.hh \
+ Engine/../Fitness/LinearTreeExecCPU.hh ../../PsimagLite/src/AST/Node.h \
+ ../../PsimagLite/src/AST/../Vector.h Engine/../Fitness/HamiltonianCPU.hh \
+ Engine/../Fitness/../Engine/InputCheck.h \
+ Engine/../Fitness/../Primitives/QuasiVector.hh \
+ Engine/../Fitness/../Primitives/../Engine/ProgramGlobals.h \
+ ../../PsimagLite/src/Matrix.h ../../PsimagLite/src/CrsMatrix.h \
+ ../../PsimagLite/src/BLAS.h ../../PsimagLite/src/Complex.h \
+ ../../PsimagLite/src/Io/IoSerializerStub.h ../../PsimagLite/src/Mpi.h \
+ ../../PsimagLite/src/Sort.h \
+ Engine/../Fitness/HamiltonianFromExpression.h \
+ Engine/../Fitness/AuxForHamSpec.h \
+ ../../PsimagLite/src/CanonicalExpression.h \
+ ../../PsimagLite/src/PsimagLite.h ../../PsimagLite/src/QuasiCanonical.h \
+ ../../PsimagLite/src/AST/ExpressionForAST.h \
+ ../../PsimagLite/src/AST/Node.h ../../PsimagLite/src/AST/Tree.h \
+ ../../PsimagLite/src/AST/PlusMinusMultiplyDivide.h \
+ ../../PsimagLite/src/AST/AdditionalFunctions.h \
+ ../../PsimagLite/src/CmplxOrReal.h Engine/../Fitness/HamiltonianSpec.h \
+ Engine/../Fitness/../Primitives/QuantumOneBitGate.h \
+ Engine/../Fitness/../Primitives/CustomQuantumGates.hh \
+ Engine/../Fitness/../Primitives/../Engine/InputCheck.h \
+ ../../PsimagLite/src/AST/ExpressionForAST.h \
+ ../../PsimagLite/src/AST/PlusMinusMultiplyDivide.h \
+ Engine/../Fitness/../Primitives/QuasiVector.hh \
+ Engine/../Fitness/IsingGraph.hh \
+ Engine/../Fitness/../Engine/ProgramGlobals.h Engine/../Fitness/Graph.hh \
+ ../../PsimagLite/src/BitManip.h Engine/../Fitness/SchwingerModel.hh \
+ Engine/NodeFactory.h ../../PsimagLite/src/Concurrency.h \
+ Engine/UnderlyingType.hh Engine/../Primitives/QuasiVector.hh \
+ Engine/NodeFactory.h Engine/UnderlyingType.hh \
+ Fitness/GroundStateFitness.h Engine/BaseFitness.h \
+ Fitness/GroundStateParams.h Fitness/../Primitives/QuasiVector.hh \
+ Engine/InputCheck.h Engine/MinimizerParams.h Engine/ProgramGlobals.h \
+ Fitness/LinearTreeExec.hh ../../PsimagLite/src/Minimizer.h \
+ Fitness/QuantumFitness.h ../../PsimagLite/src/FloatingPoint.h MpiShim.hh \
+ MpiShimSerial.hh Primitives/QuantumCircuit.h \
+ Primitives/CanonicalFormQuantum.h Primitives/CustomQuantumGates.hh \
+ Engine/InputGatesUtil.h Engine/NodeAdf.h Primitives/QuantumInput.h \
+ Primitives/QuantumOneBitGate.h Primitives/QuantumTwoBitGate.h \
+ Primitives/QuasiVector.hh ../../PsimagLite/src/RedirectOutput.hh \
+ XaccBackend.hh XaccBackendDummy.hh
+quantumIndividual.o: quantumIndividual.cpp Engine/Engine.h \
+ ../../PsimagLite/src/AST/Tree.h ../../PsimagLite/src/AST/../PsimagLite.h \
+ ../../PsimagLite/src/AST/../AnsiColors.h \
+ ../../PsimagLite/src/AST/../AllocatorCpu.h \
+ ../../PsimagLite/src/AST/../Concurrency.h \
+ ../../PsimagLite/src/AST/../CodeSectionParams.h \
+ ../../PsimagLite/src/AST/../FloatingPoint.h \
+ ../../PsimagLite/src/AST/../LAPACK.h \
+ ../../PsimagLite/src/AST/../LabelDisabled.h \
+ ../../PsimagLite/src/AST/../Vector.h \
+ ../../PsimagLite/src/AST/../../loki/TypeTraits.h \
+ ../../PsimagLite/src/AST/../../loki/Typelist.h \
+ ../../PsimagLite/src/AST/../../loki/NullType.h \
+ ../../PsimagLite/src/AST/../../loki/TypeManip.h \
+ ../../PsimagLite/src/AST/../../loki/TypelistMacros.h \
+ ../../PsimagLite/src/AST/../../loki/Sequence.h \
+ ../../PsimagLite/src/AST/../Complex.h ../../PsimagLite/src/AST/../Mpi.h \
+ ../../PsimagLite/src/AST/../MpiNo.h \
+ ../../PsimagLite/src/AST/../MicroArchitecture.h \
+ ../../PsimagLite/src/AST/../PsiBase64.h \
+ ../../PsimagLite/src/AST/../Io/IoSerializerStub.h \
+ ../../PsimagLite/src/AST/../Io/IoNgSerializer.h \
+ ../../PsimagLite/src/AST/../Io/../Complex.h \
+ ../../PsimagLite/src/AST/../Io/../TypeToString.h \
+ ../../PsimagLite/src/AST/../Io/../AllocatorCpu.h \
+ ../../PsimagLite/src/AST/../Io/../Vector.h \
+ ../../PsimagLite/src/AST/../Io/TypeToH5.h \
+ ../../PsimagLite/src/AST/../Io/../AllocatorCpu.h \
+ /usr/include/hdf5/serial/H5Cpp.h /usr/include/hdf5/serial/H5Include.h \
+ /usr/include/hdf5/serial/hdf5.h /usr/include/hdf5/serial/H5public.h \
+ /usr/include/hdf5/serial/H5pubconf.h \
+ /usr/include/hdf5/serial/H5version.h \
+ /usr/include/hdf5/serial/H5api_adpt.h \
+ /usr/include/hdf5/serial/H5Apublic.h \
+ /usr/include/hdf5/serial/H5Ipublic.h \
+ /usr/include/hdf5/serial/H5Opublic.h \
+ /usr/include/hdf5/serial/H5Lpublic.h \
+ /usr/include/hdf5/serial/H5Tpublic.h \
+ /usr/include/hdf5/serial/H5ACpublic.h \
+ /usr/include/hdf5/serial/H5Cpublic.h \
+ /usr/include/hdf5/serial/H5Dpublic.h \
+ /usr/include/hdf5/serial/H5Epublic.h \
+ /usr/include/hdf5/serial/H5Epubgen.h \
+ /usr/include/hdf5/serial/H5Fpublic.h \
+ /usr/include/hdf5/serial/H5FDpublic.h \
+ /usr/include/hdf5/serial/H5Gpublic.h \
+ /usr/include/hdf5/serial/H5MMpublic.h \
+ /usr/include/hdf5/serial/H5Ppublic.h \
+ /usr/include/hdf5/serial/H5Spublic.h \
+ /usr/include/hdf5/serial/H5Zpublic.h \
+ /usr/include/hdf5/serial/H5PLpublic.h \
+ /usr/include/hdf5/serial/H5Rpublic.h /usr/include/hdf5/serial/H5FDcore.h \
+ /usr/include/hdf5/serial/H5FDdirect.h \
+ /usr/include/hdf5/serial/H5FDfamily.h \
+ /usr/include/hdf5/serial/H5FDhdfs.h /usr/include/hdf5/serial/H5FDlog.h \
+ /usr/include/hdf5/serial/H5FDmirror.h /usr/include/hdf5/serial/H5FDmpi.h \
+ /usr/include/hdf5/serial/H5FDmpio.h /usr/include/hdf5/serial/H5FDmulti.h \
+ /usr/include/hdf5/serial/H5FDros3.h /usr/include/hdf5/serial/H5FDsec2.h \
+ /usr/include/hdf5/serial/H5FDsplitter.h \
+ /usr/include/hdf5/serial/H5FDstdio.h \
+ /usr/include/hdf5/serial/H5Exception.h \
+ /usr/include/hdf5/serial/H5IdComponent.h \
+ /usr/include/hdf5/serial/H5DataSpace.h \
+ /usr/include/hdf5/serial/H5PropList.h \
+ /usr/include/hdf5/serial/H5FaccProp.h \
+ /usr/include/hdf5/serial/H5FcreatProp.h \
+ /usr/include/hdf5/serial/H5OcreatProp.h \
+ /usr/include/hdf5/serial/H5DcreatProp.h \
+ /usr/include/hdf5/serial/H5DxferProp.h \
+ /usr/include/hdf5/serial/H5LcreatProp.h \
+ /usr/include/hdf5/serial/H5LaccProp.h \
+ /usr/include/hdf5/serial/H5DaccProp.h \
+ /usr/include/hdf5/serial/H5Location.h \
+ /usr/include/hdf5/serial/H5Classes.h /usr/include/hdf5/serial/H5Object.h \
+ /usr/include/hdf5/serial/H5AbstractDs.h \
+ /usr/include/hdf5/serial/H5Attribute.h \
+ /usr/include/hdf5/serial/H5DataType.h \
+ /usr/include/hdf5/serial/H5AtomType.h \
+ /usr/include/hdf5/serial/H5PredType.h \
+ /usr/include/hdf5/serial/H5EnumType.h \
+ /usr/include/hdf5/serial/H5IntType.h \
+ /usr/include/hdf5/serial/H5FloatType.h \
+ /usr/include/hdf5/serial/H5StrType.h \
+ /usr/include/hdf5/serial/H5CompType.h \
+ /usr/include/hdf5/serial/H5ArrayType.h \
+ /usr/include/hdf5/serial/H5VarLenType.h \
+ /usr/include/hdf5/serial/H5DataSet.h \
+ /usr/include/hdf5/serial/H5CommonFG.h /usr/include/hdf5/serial/H5Group.h \
+ /usr/include/hdf5/serial/H5File.h /usr/include/hdf5/serial/H5Library.h \
+ ../../PsimagLite/src/AST/../Random48.h \
+ ../../PsimagLite/src/AST/../TypeToString.h Engine/Chromosome.h \
+ Engine/Gene.h Engine/ProgramGlobals.h ../../PsimagLite/src/PsimagLite.h \
+ ../../PsimagLite/src/Vector.h ../../PsimagLite/src/TypeToString.h \
+ ../../PsimagLite/src/Parallelizer2.h ../../PsimagLite/src/Concurrency.h \
+ ../../PsimagLite/src/Vector.h ../../PsimagLite/src/Parallelizer2Serial.h \
+ ../../PsimagLite/src/CodeSectionParams.h Engine/ParametersEngine.h \
+ Engine/InputCheck.h ../../PsimagLite/src/InputNg.h \
+ ../../PsimagLite/src/Ainur/Ainur.h \
+ ../../PsimagLite/src/Ainur/AinurSpirit.h \
+ ../../PsimagLite/src/Ainur/../PsimagLite.h \
+ ../../PsimagLite/src/Ainur/../TypeToString.h \
+ ../../PsimagLite/src/Ainur/../Vector.h \
+ ../../PsimagLite/src/Ainur/AinurLexical.h \
+ ../../PsimagLite/src/Ainur/AinurState.h \
+ ../../PsimagLite/src/Ainur/../Matrix.h \
+ ../../PsimagLite/src/Ainur/../BLAS.h \
+ ../../PsimagLite/src/Ainur/../AllocatorCpu.h \
+ ../../PsimagLite/src/Ainur/../Complex.h \
+ ../../PsimagLite/src/Ainur/../Io/IoSerializerStub.h \
+ ../../PsimagLite/src/Ainur/../LAPACK.h \
+ ../../PsimagLite/src/Ainur/../LapackExtra.h \
+ ../../PsimagLite/src/Ainur/../Mpi.h \
+ ../../PsimagLite/src/Ainur/../TypeToString.h \
+ ../../PsimagLite/src/Ainur/../Vector.h \
+ ../../PsimagLite/src/Ainur/AinurConvert.hh \
+ ../../PsimagLite/src/Ainur/AinurMacros.hh \
+ ../../PsimagLite/src/Ainur/AinurDoubleOrFloat.h \
+ ../../PsimagLite/src/Map.h ../../PsimagLite/src/AllocatorCpu.h \
+ ../../PsimagLite/src/Matrix.h ../../PsimagLite/src/PsiBase64.h \
+ ../../PsimagLite/loki/TypeTraits.h Engine/Options.h \
+ ../../PsimagLite/src/Sort.h Engine/Evolution.h \
+ ../../PsimagLite/src/MersenneTwister.h Engine/NodeHelper.hh \
+ Engine/../Fitness/LinearTreeExec.hh \
+ Engine/../Fitness/LinearTreeExecCPU.hh ../../PsimagLite/src/AST/Node.h \
+ ../../PsimagLite/src/AST/../Vector.h Engine/../Fitness/HamiltonianCPU.hh \
+ Engine/../Fitness/../Engine/InputCheck.h \
+ Engine/../Fitness/../Primitives/QuasiVector.hh \
+ Engine/../Fitness/../Primitives/../Engine/ProgramGlobals.h \
+ ../../PsimagLite/src/Matrix.h ../../PsimagLite/src/CrsMatrix.h \
+ ../../PsimagLite/src/BLAS.h ../../PsimagLite/src/Complex.h \
+ ../../PsimagLite/src/Io/IoSerializerStub.h ../../PsimagLite/src/Mpi.h \
+ ../../PsimagLite/src/Sort.h \
+ Engine/../Fitness/HamiltonianFromExpression.h \
+ Engine/../Fitness/AuxForHamSpec.h \
+ ../../PsimagLite/src/CanonicalExpression.h \
+ ../../PsimagLite/src/PsimagLite.h ../../PsimagLite/src/QuasiCanonical.h \
+ ../../PsimagLite/src/AST/ExpressionForAST.h \
+ ../../PsimagLite/src/AST/Node.h ../../PsimagLite/src/AST/Tree.h \
+ ../../PsimagLite/src/AST/PlusMinusMultiplyDivide.h \
+ ../../PsimagLite/src/AST/AdditionalFunctions.h \
+ ../../PsimagLite/src/CmplxOrReal.h Engine/../Fitness/HamiltonianSpec.h \
+ Engine/../Fitness/../Primitives/QuantumOneBitGate.h \
+ Engine/../Fitness/../Primitives/CustomQuantumGates.hh \
+ Engine/../Fitness/../Primitives/../Engine/InputCheck.h \
+ ../../PsimagLite/src/AST/ExpressionForAST.h \
+ ../../PsimagLite/src/AST/PlusMinusMultiplyDivide.h \
+ Engine/../Fitness/../Primitives/QuasiVector.hh \
+ Engine/../Fitness/IsingGraph.hh \
+ Engine/../Fitness/../Engine/ProgramGlobals.h Engine/../Fitness/Graph.hh \
+ ../../PsimagLite/src/BitManip.h Engine/../Fitness/SchwingerModel.hh \
+ Engine/NodeFactory.h ../../PsimagLite/src/Concurrency.h \
+ Engine/UnderlyingType.hh Engine/../Primitives/QuasiVector.hh \
+ Engine/NodeFactory.h Engine/UnderlyingType.hh \
+ Fitness/GroundStateFitness.h Engine/BaseFitness.h \
+ Fitness/GroundStateParams.h Fitness/../Primitives/QuasiVector.hh \
+ Engine/InputCheck.h Engine/MinimizerParams.h Engine/ProgramGlobals.h \
+ Fitness/LinearTreeExec.hh ../../PsimagLite/src/Minimizer.h \
+ Fitness/QuantumFitness.h ../../PsimagLite/src/FloatingPoint.h \
+ Primitives/QuantumCircuit.h Primitives/CanonicalFormQuantum.h \
+ Primitives/CustomQuantumGates.hh Engine/InputGatesUtil.h \
+ Engine/NodeAdf.h Primitives/QuantumInput.h \
+ Primitives/QuantumOneBitGate.h Primitives/QuantumTwoBitGate.h \
+ Primitives/QuasiVector.hh
+graphGen.o: graphGen.cpp Fitness/Graph.hh Fitness/../Engine/InputCheck.h \
+ ../../PsimagLite/src/PsimagLite.h ../../PsimagLite/src/AnsiColors.h \
+ ../../PsimagLite/src/AllocatorCpu.h ../../PsimagLite/src/Concurrency.h \
+ ../../PsimagLite/src/CodeSectionParams.h \
+ ../../PsimagLite/src/FloatingPoint.h ../../PsimagLite/src/LAPACK.h \
+ ../../PsimagLite/src/LabelDisabled.h ../../PsimagLite/src/Vector.h \
+ ../../PsimagLite/src/../loki/TypeTraits.h \
+ ../../PsimagLite/src/../loki/Typelist.h \
+ ../../PsimagLite/src/../loki/NullType.h \
+ ../../PsimagLite/src/../loki/TypeManip.h \
+ ../../PsimagLite/src/../loki/TypelistMacros.h \
+ ../../PsimagLite/src/../loki/Sequence.h ../../PsimagLite/src/Complex.h \
+ ../../PsimagLite/src/Mpi.h ../../PsimagLite/src/MpiNo.h \
+ ../../PsimagLite/src/MicroArchitecture.h \
+ ../../PsimagLite/src/PsiBase64.h \
+ ../../PsimagLite/src/Io/IoSerializerStub.h \
+ ../../PsimagLite/src/Io/IoNgSerializer.h \
+ ../../PsimagLite/src/Io/../Complex.h \
+ ../../PsimagLite/src/Io/../TypeToString.h \
+ ../../PsimagLite/src/Io/../AllocatorCpu.h \
+ ../../PsimagLite/src/Io/../Vector.h ../../PsimagLite/src/Io/TypeToH5.h \
+ ../../PsimagLite/src/Io/../AllocatorCpu.h \
+ /usr/include/hdf5/serial/H5Cpp.h /usr/include/hdf5/serial/H5Include.h \
+ /usr/include/hdf5/serial/hdf5.h /usr/include/hdf5/serial/H5public.h \
+ /usr/include/hdf5/serial/H5pubconf.h \
+ /usr/include/hdf5/serial/H5version.h \
+ /usr/include/hdf5/serial/H5api_adpt.h \
+ /usr/include/hdf5/serial/H5Apublic.h \
+ /usr/include/hdf5/serial/H5Ipublic.h \
+ /usr/include/hdf5/serial/H5Opublic.h \
+ /usr/include/hdf5/serial/H5Lpublic.h \
+ /usr/include/hdf5/serial/H5Tpublic.h \
+ /usr/include/hdf5/serial/H5ACpublic.h \
+ /usr/include/hdf5/serial/H5Cpublic.h \
+ /usr/include/hdf5/serial/H5Dpublic.h \
+ /usr/include/hdf5/serial/H5Epublic.h \
+ /usr/include/hdf5/serial/H5Epubgen.h \
+ /usr/include/hdf5/serial/H5Fpublic.h \
+ /usr/include/hdf5/serial/H5FDpublic.h \
+ /usr/include/hdf5/serial/H5Gpublic.h \
+ /usr/include/hdf5/serial/H5MMpublic.h \
+ /usr/include/hdf5/serial/H5Ppublic.h \
+ /usr/include/hdf5/serial/H5Spublic.h \
+ /usr/include/hdf5/serial/H5Zpublic.h \
+ /usr/include/hdf5/serial/H5PLpublic.h \
+ /usr/include/hdf5/serial/H5Rpublic.h /usr/include/hdf5/serial/H5FDcore.h \
+ /usr/include/hdf5/serial/H5FDdirect.h \
+ /usr/include/hdf5/serial/H5FDfamily.h \
+ /usr/include/hdf5/serial/H5FDhdfs.h /usr/include/hdf5/serial/H5FDlog.h \
+ /usr/include/hdf5/serial/H5FDmirror.h /usr/include/hdf5/serial/H5FDmpi.h \
+ /usr/include/hdf5/serial/H5FDmpio.h /usr/include/hdf5/serial/H5FDmulti.h \
+ /usr/include/hdf5/serial/H5FDros3.h /usr/include/hdf5/serial/H5FDsec2.h \
+ /usr/include/hdf5/serial/H5FDsplitter.h \
+ /usr/include/hdf5/serial/H5FDstdio.h \
+ /usr/include/hdf5/serial/H5Exception.h \
+ /usr/include/hdf5/serial/H5IdComponent.h \
+ /usr/include/hdf5/serial/H5DataSpace.h \
+ /usr/include/hdf5/serial/H5PropList.h \
+ /usr/include/hdf5/serial/H5FaccProp.h \
+ /usr/include/hdf5/serial/H5FcreatProp.h \
+ /usr/include/hdf5/serial/H5OcreatProp.h \
+ /usr/include/hdf5/serial/H5DcreatProp.h \
+ /usr/include/hdf5/serial/H5DxferProp.h \
+ /usr/include/hdf5/serial/H5LcreatProp.h \
+ /usr/include/hdf5/serial/H5LaccProp.h \
+ /usr/include/hdf5/serial/H5DaccProp.h \
+ /usr/include/hdf5/serial/H5Location.h \
+ /usr/include/hdf5/serial/H5Classes.h /usr/include/hdf5/serial/H5Object.h \
+ /usr/include/hdf5/serial/H5AbstractDs.h \
+ /usr/include/hdf5/serial/H5Attribute.h \
+ /usr/include/hdf5/serial/H5DataType.h \
+ /usr/include/hdf5/serial/H5AtomType.h \
+ /usr/include/hdf5/serial/H5PredType.h \
+ /usr/include/hdf5/serial/H5EnumType.h \
+ /usr/include/hdf5/serial/H5IntType.h \
+ /usr/include/hdf5/serial/H5FloatType.h \
+ /usr/include/hdf5/serial/H5StrType.h \
+ /usr/include/hdf5/serial/H5CompType.h \
+ /usr/include/hdf5/serial/H5ArrayType.h \
+ /usr/include/hdf5/serial/H5VarLenType.h \
+ /usr/include/hdf5/serial/H5DataSet.h \
+ /usr/include/hdf5/serial/H5CommonFG.h /usr/include/hdf5/serial/H5Group.h \
+ /usr/include/hdf5/serial/H5File.h /usr/include/hdf5/serial/H5Library.h \
+ ../../PsimagLite/src/Random48.h ../../PsimagLite/src/TypeToString.h \
+ ../../PsimagLite/src/BitManip.h ../../PsimagLite/src/InputNg.h \
+ ../../PsimagLite/src/Ainur/Ainur.h \
+ ../../PsimagLite/src/Ainur/AinurSpirit.h \
+ ../../PsimagLite/src/Ainur/../PsimagLite.h \
+ ../../PsimagLite/src/Ainur/../TypeToString.h \
+ ../../PsimagLite/src/Ainur/../Vector.h \
+ ../../PsimagLite/src/Ainur/AinurLexical.h \
+ ../../PsimagLite/src/Ainur/AinurState.h \
+ ../../PsimagLite/src/Ainur/../Matrix.h \
+ ../../PsimagLite/src/Ainur/../BLAS.h \
+ ../../PsimagLite/src/Ainur/../AllocatorCpu.h \
+ ../../PsimagLite/src/Ainur/../Complex.h \
+ ../../PsimagLite/src/Ainur/../Io/IoSerializerStub.h \
+ ../../PsimagLite/src/Ainur/../LAPACK.h \
+ ../../PsimagLite/src/Ainur/../LapackExtra.h \
+ ../../PsimagLite/src/Ainur/../Mpi.h \
+ ../../PsimagLite/src/Ainur/../TypeToString.h \
+ ../../PsimagLite/src/Ainur/../Vector.h \
+ ../../PsimagLite/src/Ainur/AinurConvert.hh \
+ ../../PsimagLite/src/Ainur/AinurMacros.hh \
+ ../../PsimagLite/src/Ainur/AinurDoubleOrFloat.h \
+ ../../PsimagLite/src/Map.h ../../PsimagLite/src/Matrix.h \
+ ../../PsimagLite/loki/TypeTraits.h
+isGraphConnected.o: isGraphConnected.cpp Fitness/Graph.hh \
+ Fitness/../Engine/InputCheck.h ../../PsimagLite/src/PsimagLite.h \
+ ../../PsimagLite/src/AnsiColors.h ../../PsimagLite/src/AllocatorCpu.h \
+ ../../PsimagLite/src/Concurrency.h \
+ ../../PsimagLite/src/CodeSectionParams.h \
+ ../../PsimagLite/src/FloatingPoint.h ../../PsimagLite/src/LAPACK.h \
+ ../../PsimagLite/src/LabelDisabled.h ../../PsimagLite/src/Vector.h \
+ ../../PsimagLite/src/../loki/TypeTraits.h \
+ ../../PsimagLite/src/../loki/Typelist.h \
+ ../../PsimagLite/src/../loki/NullType.h \
+ ../../PsimagLite/src/../loki/TypeManip.h \
+ ../../PsimagLite/src/../loki/TypelistMacros.h \
+ ../../PsimagLite/src/../loki/Sequence.h ../../PsimagLite/src/Complex.h \
+ ../../PsimagLite/src/Mpi.h ../../PsimagLite/src/MpiNo.h \
+ ../../PsimagLite/src/MicroArchitecture.h \
+ ../../PsimagLite/src/PsiBase64.h \
+ ../../PsimagLite/src/Io/IoSerializerStub.h \
+ ../../PsimagLite/src/Io/IoNgSerializer.h \
+ ../../PsimagLite/src/Io/../Complex.h \
+ ../../PsimagLite/src/Io/../TypeToString.h \
+ ../../PsimagLite/src/Io/../AllocatorCpu.h \
+ ../../PsimagLite/src/Io/../Vector.h ../../PsimagLite/src/Io/TypeToH5.h \
+ ../../PsimagLite/src/Io/../AllocatorCpu.h \
+ /usr/include/hdf5/serial/H5Cpp.h /usr/include/hdf5/serial/H5Include.h \
+ /usr/include/hdf5/serial/hdf5.h /usr/include/hdf5/serial/H5public.h \
+ /usr/include/hdf5/serial/H5pubconf.h \
+ /usr/include/hdf5/serial/H5version.h \
+ /usr/include/hdf5/serial/H5api_adpt.h \
+ /usr/include/hdf5/serial/H5Apublic.h \
+ /usr/include/hdf5/serial/H5Ipublic.h \
+ /usr/include/hdf5/serial/H5Opublic.h \
+ /usr/include/hdf5/serial/H5Lpublic.h \
+ /usr/include/hdf5/serial/H5Tpublic.h \
+ /usr/include/hdf5/serial/H5ACpublic.h \
+ /usr/include/hdf5/serial/H5Cpublic.h \
+ /usr/include/hdf5/serial/H5Dpublic.h \
+ /usr/include/hdf5/serial/H5Epublic.h \
+ /usr/include/hdf5/serial/H5Epubgen.h \
+ /usr/include/hdf5/serial/H5Fpublic.h \
+ /usr/include/hdf5/serial/H5FDpublic.h \
+ /usr/include/hdf5/serial/H5Gpublic.h \
+ /usr/include/hdf5/serial/H5MMpublic.h \
+ /usr/include/hdf5/serial/H5Ppublic.h \
+ /usr/include/hdf5/serial/H5Spublic.h \
+ /usr/include/hdf5/serial/H5Zpublic.h \
+ /usr/include/hdf5/serial/H5PLpublic.h \
+ /usr/include/hdf5/serial/H5Rpublic.h /usr/include/hdf5/serial/H5FDcore.h \
+ /usr/include/hdf5/serial/H5FDdirect.h \
+ /usr/include/hdf5/serial/H5FDfamily.h \
+ /usr/include/hdf5/serial/H5FDhdfs.h /usr/include/hdf5/serial/H5FDlog.h \
+ /usr/include/hdf5/serial/H5FDmirror.h /usr/include/hdf5/serial/H5FDmpi.h \
+ /usr/include/hdf5/serial/H5FDmpio.h /usr/include/hdf5/serial/H5FDmulti.h \
+ /usr/include/hdf5/serial/H5FDros3.h /usr/include/hdf5/serial/H5FDsec2.h \
+ /usr/include/hdf5/serial/H5FDsplitter.h \
+ /usr/include/hdf5/serial/H5FDstdio.h \
+ /usr/include/hdf5/serial/H5Exception.h \
+ /usr/include/hdf5/serial/H5IdComponent.h \
+ /usr/include/hdf5/serial/H5DataSpace.h \
+ /usr/include/hdf5/serial/H5PropList.h \
+ /usr/include/hdf5/serial/H5FaccProp.h \
+ /usr/include/hdf5/serial/H5FcreatProp.h \
+ /usr/include/hdf5/serial/H5OcreatProp.h \
+ /usr/include/hdf5/serial/H5DcreatProp.h \
+ /usr/include/hdf5/serial/H5DxferProp.h \
+ /usr/include/hdf5/serial/H5LcreatProp.h \
+ /usr/include/hdf5/serial/H5LaccProp.h \
+ /usr/include/hdf5/serial/H5DaccProp.h \
+ /usr/include/hdf5/serial/H5Location.h \
+ /usr/include/hdf5/serial/H5Classes.h /usr/include/hdf5/serial/H5Object.h \
+ /usr/include/hdf5/serial/H5AbstractDs.h \
+ /usr/include/hdf5/serial/H5Attribute.h \
+ /usr/include/hdf5/serial/H5DataType.h \
+ /usr/include/hdf5/serial/H5AtomType.h \
+ /usr/include/hdf5/serial/H5PredType.h \
+ /usr/include/hdf5/serial/H5EnumType.h \
+ /usr/include/hdf5/serial/H5IntType.h \
+ /usr/include/hdf5/serial/H5FloatType.h \
+ /usr/include/hdf5/serial/H5StrType.h \
+ /usr/include/hdf5/serial/H5CompType.h \
+ /usr/include/hdf5/serial/H5ArrayType.h \
+ /usr/include/hdf5/serial/H5VarLenType.h \
+ /usr/include/hdf5/serial/H5DataSet.h \
+ /usr/include/hdf5/serial/H5CommonFG.h /usr/include/hdf5/serial/H5Group.h \
+ /usr/include/hdf5/serial/H5File.h /usr/include/hdf5/serial/H5Library.h \
+ ../../PsimagLite/src/Random48.h ../../PsimagLite/src/TypeToString.h \
+ ../../PsimagLite/src/BitManip.h ../../PsimagLite/src/InputNg.h \
+ ../../PsimagLite/src/Ainur/Ainur.h \
+ ../../PsimagLite/src/Ainur/AinurSpirit.h \
+ ../../PsimagLite/src/Ainur/../PsimagLite.h \
+ ../../PsimagLite/src/Ainur/../TypeToString.h \
+ ../../PsimagLite/src/Ainur/../Vector.h \
+ ../../PsimagLite/src/Ainur/AinurLexical.h \
+ ../../PsimagLite/src/Ainur/AinurState.h \
+ ../../PsimagLite/src/Ainur/../Matrix.h \
+ ../../PsimagLite/src/Ainur/../BLAS.h \
+ ../../PsimagLite/src/Ainur/../AllocatorCpu.h \
+ ../../PsimagLite/src/Ainur/../Complex.h \
+ ../../PsimagLite/src/Ainur/../Io/IoSerializerStub.h \
+ ../../PsimagLite/src/Ainur/../LAPACK.h \
+ ../../PsimagLite/src/Ainur/../LapackExtra.h \
+ ../../PsimagLite/src/Ainur/../Mpi.h \
+ ../../PsimagLite/src/Ainur/../TypeToString.h \
+ ../../PsimagLite/src/Ainur/../Vector.h \
+ ../../PsimagLite/src/Ainur/AinurConvert.hh \
+ ../../PsimagLite/src/Ainur/AinurMacros.hh \
+ ../../PsimagLite/src/Ainur/AinurDoubleOrFloat.h \
+ ../../PsimagLite/src/Map.h ../../PsimagLite/src/Matrix.h \
+ ../../PsimagLite/loki/TypeTraits.h
+testSchwinger.o: testSchwinger.cpp ../../PsimagLite/src/LanczosSolver.h \
+ ../../PsimagLite/src/LanczosCore.h \
+ ../../PsimagLite/src/ContinuedFraction.h ../../PsimagLite/src/Complex.h \
+ ../../PsimagLite/src/../loki/TypeTraits.h \
+ ../../PsimagLite/src/../loki/Typelist.h \
+ ../../PsimagLite/src/../loki/NullType.h \
+ ../../PsimagLite/src/../loki/TypeManip.h \
+ ../../PsimagLite/src/../loki/TypelistMacros.h \
+ ../../PsimagLite/src/../loki/Sequence.h \
+ ../../PsimagLite/src/AllocatorCpu.h ../../PsimagLite/src/FreqEnum.h \
+ ../../PsimagLite/src/Io/IoSimple.h ../../PsimagLite/src/Concurrency.h \
+ ../../PsimagLite/src/CodeSectionParams.h \
+ ../../PsimagLite/src/FloatingPoint.h ../../PsimagLite/src/LAPACK.h \
+ ../../PsimagLite/src/LabelDisabled.h ../../PsimagLite/src/Vector.h \
+ ../../PsimagLite/src/Mpi.h ../../PsimagLite/src/MpiNo.h \
+ ../../PsimagLite/src/Map.h ../../PsimagLite/src/Matrix.h \
+ ../../PsimagLite/src/BLAS.h ../../PsimagLite/src/Io/IoSerializerStub.h \
+ ../../PsimagLite/src/Io/IoNgSerializer.h \
+ ../../PsimagLite/src/Io/../Complex.h \
+ ../../PsimagLite/src/Io/../TypeToString.h \
+ ../../PsimagLite/src/Io/../AllocatorCpu.h \
+ ../../PsimagLite/src/Io/../Vector.h ../../PsimagLite/src/Io/TypeToH5.h \
+ ../../PsimagLite/src/Io/../AllocatorCpu.h \
+ /usr/include/hdf5/serial/H5Cpp.h /usr/include/hdf5/serial/H5Include.h \
+ /usr/include/hdf5/serial/hdf5.h /usr/include/hdf5/serial/H5public.h \
+ /usr/include/hdf5/serial/H5pubconf.h \
+ /usr/include/hdf5/serial/H5version.h \
+ /usr/include/hdf5/serial/H5api_adpt.h \
+ /usr/include/hdf5/serial/H5Apublic.h \
+ /usr/include/hdf5/serial/H5Ipublic.h \
+ /usr/include/hdf5/serial/H5Opublic.h \
+ /usr/include/hdf5/serial/H5Lpublic.h \
+ /usr/include/hdf5/serial/H5Tpublic.h \
+ /usr/include/hdf5/serial/H5ACpublic.h \
+ /usr/include/hdf5/serial/H5Cpublic.h \
+ /usr/include/hdf5/serial/H5Dpublic.h \
+ /usr/include/hdf5/serial/H5Epublic.h \
+ /usr/include/hdf5/serial/H5Epubgen.h \
+ /usr/include/hdf5/serial/H5Fpublic.h \
+ /usr/include/hdf5/serial/H5FDpublic.h \
+ /usr/include/hdf5/serial/H5Gpublic.h \
+ /usr/include/hdf5/serial/H5MMpublic.h \
+ /usr/include/hdf5/serial/H5Ppublic.h \
+ /usr/include/hdf5/serial/H5Spublic.h \
+ /usr/include/hdf5/serial/H5Zpublic.h \
+ /usr/include/hdf5/serial/H5PLpublic.h \
+ /usr/include/hdf5/serial/H5Rpublic.h /usr/include/hdf5/serial/H5FDcore.h \
+ /usr/include/hdf5/serial/H5FDdirect.h \
+ /usr/include/hdf5/serial/H5FDfamily.h \
+ /usr/include/hdf5/serial/H5FDhdfs.h /usr/include/hdf5/serial/H5FDlog.h \
+ /usr/include/hdf5/serial/H5FDmirror.h /usr/include/hdf5/serial/H5FDmpi.h \
+ /usr/include/hdf5/serial/H5FDmpio.h /usr/include/hdf5/serial/H5FDmulti.h \
+ /usr/include/hdf5/serial/H5FDros3.h /usr/include/hdf5/serial/H5FDsec2.h \
+ /usr/include/hdf5/serial/H5FDsplitter.h \
+ /usr/include/hdf5/serial/H5FDstdio.h \
+ /usr/include/hdf5/serial/H5Exception.h \
+ /usr/include/hdf5/serial/H5IdComponent.h \
+ /usr/include/hdf5/serial/H5DataSpace.h \
+ /usr/include/hdf5/serial/H5PropList.h \
+ /usr/include/hdf5/serial/H5FaccProp.h \
+ /usr/include/hdf5/serial/H5FcreatProp.h \
+ /usr/include/hdf5/serial/H5OcreatProp.h \
+ /usr/include/hdf5/serial/H5DcreatProp.h \
+ /usr/include/hdf5/serial/H5DxferProp.h \
+ /usr/include/hdf5/serial/H5LcreatProp.h \
+ /usr/include/hdf5/serial/H5LaccProp.h \
+ /usr/include/hdf5/serial/H5DaccProp.h \
+ /usr/include/hdf5/serial/H5Location.h \
+ /usr/include/hdf5/serial/H5Classes.h /usr/include/hdf5/serial/H5Object.h \
+ /usr/include/hdf5/serial/H5AbstractDs.h \
+ /usr/include/hdf5/serial/H5Attribute.h \
+ /usr/include/hdf5/serial/H5DataType.h \
+ /usr/include/hdf5/serial/H5AtomType.h \
+ /usr/include/hdf5/serial/H5PredType.h \
+ /usr/include/hdf5/serial/H5EnumType.h \
+ /usr/include/hdf5/serial/H5IntType.h \
+ /usr/include/hdf5/serial/H5FloatType.h \
+ /usr/include/hdf5/serial/H5StrType.h \
+ /usr/include/hdf5/serial/H5CompType.h \
+ /usr/include/hdf5/serial/H5ArrayType.h \
+ /usr/include/hdf5/serial/H5VarLenType.h \
+ /usr/include/hdf5/serial/H5DataSet.h \
+ /usr/include/hdf5/serial/H5CommonFG.h /usr/include/hdf5/serial/H5Group.h \
+ /usr/include/hdf5/serial/H5File.h /usr/include/hdf5/serial/H5Library.h \
+ ../../PsimagLite/src/LapackExtra.h ../../PsimagLite/src/TypeToString.h \
+ ../../PsimagLite/src/Stack.h ../../PsimagLite/src/ParametersForSolver.h \
+ ../../PsimagLite/src/Matrix.h ../../PsimagLite/src/ProgressIndicator.h \
+ ../../PsimagLite/src/Concurrency.h ../../PsimagLite/src/MemoryUsage.h \
+ ../../PsimagLite/src/Random48.h ../../PsimagLite/src/TridiagonalMatrix.h \
+ ../../PsimagLite/src/PlotParams.h ../../PsimagLite/src/LanczosVectors.h \
+ ../../PsimagLite/src/LanczosOrDavidsonBase.h \
+ ../../PsimagLite/src/Profiling.h ../../PsimagLite/src/PsimagLite.h \
+ ../../PsimagLite/src/AnsiColors.h \
+ ../../PsimagLite/src/MicroArchitecture.h \
+ ../../PsimagLite/src/PsiBase64.h Fitness/SchwingerModel.hh \
+ ../../PsimagLite/src/CrsMatrix.h ../../PsimagLite/src/Sort.h \
+ ../../PsimagLite/loki/TypeTraits.h

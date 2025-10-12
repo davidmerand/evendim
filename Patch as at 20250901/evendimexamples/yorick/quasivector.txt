@@ -1,0 +1,21 @@
+QuasiVector v;
+v.size_
+v.isExp_
+v.setEntry(i, ComplexOrRealType(real, imag))
+v.frroimFile
+v.flipABit(src, bit)
+v.toVector()
+v.index(i)
+v.norm()
+oneBitGate(v, bit, gate)
+vectorDiff2(v1, v2)
+diffVectorDiff2(v1, v2)
+
+MatrixType gate;
+gate.resize(2, 2);
+gate(0,0) = ComplexOrRealType(real, imag)
+
+CNOT(v, control, target)
+v.getBitForIndex(i, bit)    checks bit in "i"
+
+OneBitGateLibrary::fillAnyGate(gate, "Sx");

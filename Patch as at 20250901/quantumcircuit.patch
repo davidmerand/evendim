@@ -1,0 +1,29 @@
+diff --git a/src/Primitives/QuantumCircuit.h b/src/Primitives/QuantumCircuit.h
+index e339a1d..10036f7 100644
+--- src/Primitives/QuantumCircuit.h
++++ src/Primitives/QuantumCircuit.h
+@@ -201,6 +201,24 @@ private:
+ 			}
+ 		}
+ 
++		it = std::find(tmpGates.begin(), tmpGates.end(), "t");
++		if (it != tmpGates.end()) {
++			tmpGates.erase(it);
++			// add Toffoli gates
++			MatrixType cnotGate;
++			TwoBitGateLibraryType::fillCnot(cnotGate);
++			for (SizeType i = 0; i < numberOfBits_; ++i) {
++				for (SizeType j = i + 1; j < numberOfBits_; ++j) {
++					for (SizeType k = j + 1; k < numberOfBits_; ++k) {
++						NodeType* cnot = new QuantumTwoBitGateType("C", i, j, numberOfBits_, cnotGate);
++						nodes.push_back(cnot);
++						NodeType* cnot2 = new QuantumTwoBitGateType("C", j, i, numberOfBits_, cnotGate);
++						nodes.push_back(cnot2);
++					}
++				}
++			}
++		}
++
+ 		customGates(nodes, tmpGates);
+ 
+ 		if (tmpGates.size() > 0) {

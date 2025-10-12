@@ -1,0 +1,21 @@
+##Ainur1.0
+
+#This tests the ZZ Ising on a chain
+HeadSize=4;
+#Seed=12345;
+Population=60;
+Generations=50;
+NumberOfBits=4;
+MinimizerTolerance=0.1;
+Primitives="Ry";
+MinimizerDelta=0.01;
+MinimizerDelta2=0.01;
+MinimizerVerbose=0;
+ProgressBar=1;
+MinimizerAlgorithm="Simplex";
+RunType="GroundState";
+Hamiltonian="zz";
+HamiltonianCoupling=1;
+#HamiltonianIsPeriodic=1;
+InVectorFile="../TestSuite/inputs/vector10.txt";
+

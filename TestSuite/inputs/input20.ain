@@ -1,0 +1,20 @@
+##Ainur1.0
+
+#This tests a 2x2 matrix (1-bit)
+HeadSize=4;
+#Seed=12345;
+Population=60; #Pop
+Generations=50;
+NumberOfBits=1;
+MinimizerTolerance=0.1;
+Primitives="Ry,P";
+MinimizerDelta=0.01;
+MinimizerDelta2=0.01;
+MinimizerVerbose=0;
+ProgressBar=1;
+MinimizerAlgorithm="Simplex";
+RunType="GroundState";
+Hamiltonian="file:../TestSuite/inputs/matrix20.txt";
+HamiltonianCoupling=1;
+#HamiltonianIsPeriodic=1;
+InVectorFile="../TestSuite/inputs/vector20.txt";

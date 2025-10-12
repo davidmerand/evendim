@@ -1,0 +1,11 @@
+CG :       Custom gate
+PG :       Parametric gate
+H :        Hadamard
+P :        Phase  diag(1, exp(i pi / 2))
+T :        Phase  diag(1, exp(i pi / 4))
+Sx :       Pauli sigma_x
+Sy :       Pauli sigma_y
+Sz :       Pauli sigma_z
+Rx:angle : Rotation around x  cos(angle) I + i sin(angle) sigma_x
+Ry:angle : Rotation around x  cos(angle) I + i sin(angle) sigma_y
+Rz:angle : Rotation around x  cos(angle) I + i sin(angle) sigma_z

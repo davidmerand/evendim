@@ -1,0 +1,9 @@
+--- ./src/Makefile.orig	2025-01-14 07:23:54.405900323 +0000
++++ ./src/Makefile
+@@ -64,3 +64,6 @@ clean: Makefile.dep
+ 	rm -f core* gep2 *.o *.dep
+ 
+ include Makefile.dep
++
++notgate: quantumGep ../yorick/notgate.ain
++	./quantumGep -f ../yorick/notgate.ain
