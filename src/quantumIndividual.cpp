@@ -179,10 +179,10 @@ int main(int argc, char* argv[])
 		err("Last node of quantum individual must be zero\n");
 
 	gepOptions.head = tokens.size() - 1;
-
+	PsimagLite::String functionToFit = ""; //not used here, only needed for gene expression
 	ParametersEngineType params(gepOptions);
 	PrimitivesType primitives(numberOfBits, gates, io);
-	EvolutionType evolution(primitives, seed, verbose);
+	EvolutionType evolution(primitives, seed, verbose, functionToFit);
 
 	constexpr SizeType threadNum = 0;
 	ChromosomeType chromosome(params,

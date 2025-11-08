@@ -261,23 +261,7 @@ private:
 		}
 		std::cout << "DZM Before adding Toffoli gate numberOfBits = "  + std::to_string(numberOfBits_) + "\n";
 
-		it = std::find(tmpGates.begin(), tmpGates.end(), "t");
-		if (it != tmpGates.end()) {
-			tmpGates.erase(it);
-			// add Toffoli gates
-			MatrixType cnotGate;
-			TwoBitGateLibraryType::fillCnot(cnotGate);
-			for (SizeType i = 0; i < numberOfBits_; ++i) {
-				for (SizeType j = i + 1; j < numberOfBits_; ++j) {
-					for (SizeType k = j + 1; k < numberOfBits_; ++k) {
-							NodeType* cnot = new QuantumTwoBitGateType("C", i, j, numberOfBits_, cnotGate);
-							nodes.push_back(cnot);
-							NodeType* cnot2 = new QuantumTwoBitGateType("C", j, i, numberOfBits_, cnotGate);
-							nodes.push_back(cnot2);
-					}
-				}
-			}
-		}
+
 		it = std::find(tmpGates.begin(), tmpGates.end(), "t");
 				if (it != tmpGates.end()) {
 						NodeType* toff;

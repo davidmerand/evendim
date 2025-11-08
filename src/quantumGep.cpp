@@ -172,6 +172,11 @@ int main(int argc, char* argv[])
 	PsimagLite::String runType;
 	io.readline(runType, "RunType=");
 
+	PsimagLite::String functionToFit;
+	io.readline(functionToFit, "Function=");
+
+	std::cout << "Function  = "<< functionToFit << "\n";
+
 	if (runType == "GroundState")
 		gepOptions.samples = 1;
 
@@ -192,7 +197,7 @@ int main(int argc, char* argv[])
 	Gep::XaccBackend xaccBackend(argc, argv);
 
 	PrimitivesType primitives(numberOfBits, gates, io);
-	EvolutionType evolution(primitives, seed, verbose);
+	EvolutionType evolution(primitives, seed, verbose, functionToFit);
 
 	if (runType == "FunctionFit") {
 		main2<Gep::QuantumFitness, EvolutionType>(evolution, params, io);

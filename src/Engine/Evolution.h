@@ -45,9 +45,11 @@ public:
 
 	Evolution(PrimitivesType& primitives,
 	          SizeType r,
-	          bool verbose)
+	          bool verbose,
+			  PsimagLite::String functionToFit)
 	    : primitives_(primitives)
 	    , verbose_(verbose)
+		, functionToFit_(functionToFit)
 	    , maxArity_(0)
 	    , nodeHelper_(primitives.nodesSerial())
 	    , rng_(r)
@@ -66,6 +68,10 @@ public:
 	}
 
 	bool verbose() const { return verbose_; }
+
+	PsimagLite::String functionToFit() const {return functionToFit_; }
+
+
 
 	SizeType tail(SizeType head) const
 	{
@@ -290,6 +296,7 @@ private:
 
 	PrimitivesType& primitives_;
 	bool verbose_;
+	PsimagLite::String functionToFit_;
 	SizeType maxArity_;
 	NodeHelperType nodeHelper_;
 	VectorStringType nonTerminals_;

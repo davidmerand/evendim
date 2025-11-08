@@ -166,9 +166,11 @@ int main(int argc, char* argv[])
 	 */
 	typedef Gep::PlusMinusMultiplyDivide<double> PrimitivesType;
 	typedef Gep::Evolution<PrimitivesType> EvolutionType;
-
+	PsimagLite::String functionToFit = ""; // not used here needed for gene programming
 	PrimitivesType primitives(inputs, gepOptions.genes, constants);
-	EvolutionType evolution(primitives, seed, verbose);
+	EvolutionType evolution(primitives, seed, verbose, functionToFit);
+//	EvolutionType evolution(primitives, seed, verbose);
+
 
 	if (example < 2) {
 		main1<Gep::Example1Fitness, EvolutionType>(evolution, gepOptions);

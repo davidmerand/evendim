@@ -93,7 +93,7 @@ public:
 			for (SizeType i = 0; i < samples; ++i) {
 				setInVector(i);
 				evolution_.nodeHelper().setInput(0, inVector_, threadNum_);
-				functionF(outVector_, inVector_);
+				functionF(outVector_, inVector_, evolution_.functionToFit());
 
 				computeDifferentialVector(differential_, angles, angleIndex);
 
@@ -129,7 +129,7 @@ public:
 			if (verbose)
 				evolution_.nodeHelper().printInputs(std::cout);
 
-			functionF(outVector_, inVector_);
+			functionF(outVector_, inVector_, evolution_.functionToFit());
 
 			const RealType tmp = vectorDiff2(chromosome->exec(0),
 			                                 outVector_);
@@ -331,16 +331,36 @@ private:
 		dest = SWAP(src, 0, 1);
         }
 
-	// This is the function to fit to
-	static void functionF(QuasiVectorType& dest, const QuasiVectorType& src)
+	// This is the function to fit toT
+	static void functionF(QuasiVectorType& dest, const QuasiVectorType& src, PsimagLite::String functionToFit)
         {
-		functionF_SWAP(dest, src);
+//		std::cout << "function is " << functionToFit << "\n";
+		if (functionToFit == "SQRTNOT") {
+
+			functionF_SQRTNOT(dest, src);
+		}
+		else if (functionToFit == "CLONE") {
+
+			functionF_CLONE(dest, src);
+		}
+		else if (functionToFit == "NOT") {
+
+			functionF_NOT(dest, src);
+		}
+		else {
+
+			std::cout << "Function " << functionToFit << " not found" << std::endl;
+			throw PsimagLite::RuntimeError("Function to fit not found. See output file\n");
+
+		}
+//		functionF_SWAP(dest, src);
         }
 
 	void computeDifferentialVector(QuasiVectorType& differential,
 	                               const VectorRealType& angles,
 	                               SizeType angleIndex)
 	{
+
 		assert(angles.size() == numberOfAngles_);
 
 		VectorStringType cString = chromosome_.effectiveVecString();

@@ -24,6 +24,7 @@ public:
 		str += "string Primitives;\n";
 		str += "string MinimizerAlgorithm;\n";
 		str += "string RunType;\n";
+		str += "string Function;\n";
 		str += "string Hamiltonian;\n";
 		str += "string InVectorFile;\n";
 
