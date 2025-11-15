@@ -15,7 +15,9 @@ public:
 	static void fillCnot(MatrixType& gateMatrix)
 	{
 		gateMatrix.resize(4, 4);
+//DZM changed
 		gateMatrix(0, 0) = gateMatrix(1, 1) = 1;
+//		gateMatrix(0, 0) = gateMatrix(0, 1) = 1;
 		gateMatrix(2, 3) = gateMatrix(3, 2) = 1;
 	}
 }; // class GateLibrary
