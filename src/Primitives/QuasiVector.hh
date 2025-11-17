@@ -190,48 +190,51 @@ public:
 		return w;
 	}
 
-		friend QuasiVector Toffoli(const QuasiVector& src, SizeType bit1, SizeType bit2, SizeType bit3)
-		{
-				const int n = src.size();
+	friend QuasiVector Toffoli(const QuasiVector& src, SizeType bit1, SizeType bit2, SizeType bit3)
+	{
+			const int n = src.size();
 
-				QuasiVector w(n);
-				w.blowUp(n);
-				SizeType control1 = (1 << bit1);
-				SizeType control2 = (1 << bit2);
-				SizeType target   = (1 << bit3);
-		                SizeType mask1    = control1 | control2;
-		                SizeType mask2    = control1 | control2 | target;
-				for (int i = 0; i < n; ++i) {
-						if ((i & mask2) == mask1) {
-				                		w.data_[i^target] = src.data_[i];
-				                		w.data_[i] = src.data_[i^target];
-							} else {
-									w.data_[i] = src.data_[i];
-								}
-							}
+			QuasiVector w(n);
+			w.blowUp(n);
+			SizeType control1 = (1 << bit1);
+			SizeType control2 = (1 << bit2);
+			SizeType target   = (1 << bit3);
+	                SizeType mask1    = control1 | control2;
+	                SizeType mask2    = control1 | control2 | target;
+			for (int i = 0; i < n; ++i) {
+					if ((i & mask2) == mask1) {
+	                		w.data_[i^target] = src.data_[i];
+	                		w.data_[i] = src.data_[i^target];
+					} else {
+							w.data_[i] = src.data_[i];
+					}
+			}
 
-							return w;
+			return w;
+	}
+
+	friend QuasiVector SWAP(const QuasiVector& src, SizeType bit1, SizeType bit2)
+	{
+			const int n = src.size();
+
+			QuasiVector w(n);
+			w.blowUp(n);
+			SizeType index1 = (1 << bit1);
+			SizeType index2 = (1 << bit2);
+			SizeType mask = index1 | index2;
+			for (int i = 0; i < n; ++i) {
+					if (((i & mask) == index1) || ((i & mask) == index2)) {
+								// think of mask as 11, then
+								//  if i = 01: w[10] = src[01]
+								//  if i = 10: w[01] = src[10]
+								w.data_[i^mask] = src.data_[i];
+						} else {
+								w.data_[i] = src.data_[i];
 						}
+					}
 
-						friend QuasiVector SWAP(const QuasiVector& src, SizeType bit1, SizeType bit2)
-						{
-								const int n = src.size();
-
-								QuasiVector w(n);
-								w.blowUp(n);
-								SizeType index1 = (1 << bit1);
-								SizeType index2 = (1 << bit2);
-								SizeType mask = index1 | index2;
-								for (int i = 0; i < n; ++i) {
-										if (((i & mask) == index1) || ((i & mask) == index2)) {
-								                		w.data_[i^mask] = src.data_[i];
-											} else {
-													w.data_[i] = src.data_[i];
-												}
-											}
-
-											return w;
-										}
+					return w;
+	}
 
 	friend QuasiVector CNOT(const QuasiVector& src, SizeType bit1, SizeType bit2)
 	{

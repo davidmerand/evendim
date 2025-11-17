@@ -74,5 +74,5 @@ sqrtnot: quantumGep ../yorick/sqrtnot.ain
 cloning: quantumGep ../yorick/cloning.ain
 	./quantumGep -f ../yorick/cloning.ain
 
-swapgate: quantumGep ../yorick/swap.ain
-	./quantumGep -f ../yorick/swap.ain
+swapgate: quantumGep swap.ain
+	./quantumGep -f swap.ain

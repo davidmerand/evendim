@@ -265,13 +265,16 @@ private:
 		notgate(1, 0) = 1; notgate(1, 1) = 0;
 		dest = oneBitGate(src, 0, notgate);
         }
+
+//Yorick's version of SWAP
+
 	static void functionF_SWAP(QuasiVectorType& dest, const QuasiVectorType& src)
         {
-		MatrixType swapgate;
-		swapgate.resize(4,4);
-		swapgate(0, 0) = swapgate(1, 2) = swapgate(2, 1) = swapgate (3, 3) = 1;
-		dest = oneBitGate(src, 0, swapgate);
-        }
+
+		dest = SWAP(src, 0, 1);
+
+		}
+
 	static void functionF_SQRTNOT(QuasiVectorType& dest, const QuasiVectorType& src)
         {
 		MatrixType notgate;
@@ -332,12 +335,6 @@ private:
 		dest.setEntry(2, y*x);
 		dest.setEntry(3, y*y);
         }
-
-//Yorick's versionn of SWAP
-//	static void functionF_SWAP(QuasiVectorType& dest, const QuasiVectorType& src)
-//        {
-//		dest = SWAP(src, 0, 1);
-//        }
 
 	// This is the function to fit toT
 	static void functionF(QuasiVectorType& dest, const QuasiVectorType& src, PsimagLite::String functionToFit)
